@@ -13,28 +13,145 @@ with open('config.json') as e:
   heitor = infos['heitor']
   tess = infos['tess']
   ikki = infos['ikki']
-  lara = infos['lara']
+  chsug = infos['chsug']
+  chfeed = infos['chfeed']
 
-bot = commands.Bot(command_prefix=prefixo,case_insensitive=True, intents=discord.Intents.all())
+lara = commands.Bot(command_prefix=prefixo, case_insensitive=True, intents=discord.Intents.all())
+lara.remove_command('help')
 
-
-@bot.event
+@lara.event
 async def on_ready():
-  calc = bot.latency * 1000
+  calc = lara.latency * 1000
   pong = round(calc)
 
-  await bot.change_presence(activity=discord.Activity(type=discord.ActivityType.listening, name='Discord.PY'))
-  print(f'Nome: {bot.user}  ID: {bot.user.id}')
-  print(f'Membros Globais: {len(bot.users)}')
-  print(f'Servidores Globais: {len(bot.guilds)}')
+  await lara.change_presence(activity=discord.Activity(type=discord.ActivityType.listening, name='Discord.PY'))
+  print(f'Nome: {lara.user}  ID: {lara.user.id}')
+  print(f'Membros Globais: {len(lara.users)}')
+  print(f'Servidores Globais: {len(lara.guilds)}')
   print(f'Ping {pong} ms')
 
-@bot.command()
-async def ola(ctx):
-  await ctx.send(f'Olá, {ctx.author.display_name}')
+@lara.group(invoke_without_command=True, aliases=['ajuda', 'helper'])
+async def help(ctx):
+  x = discord.Embed(title='Lista de comandos:', description=f'Use {prefixo}help (comando) para obter mais informações!')
+  x.add_field(name='Diversão', value='Dado, hug, Anime, D&D, Moeda')
+  x.add_field(name='Utilidades', value='Bot, Server, User, Ping, Membros, Say, Code, Report')
+  x.add_field(name='Moderação', value='Ban, Kick, Cargo')
+  await ctx.send(embed=x)
+
+@help.command()
+async def kick(ctx):
+  x = discord.Embed(title='Expulsar', description='**Moderação**')
+  x.add_field(name='Sintaxe:', value=f'{prefixo}[kick, expulsar]', inline=False)
+  x.add_field(name='Descrição:', value='Comando para expulsar um membro do servidor.', inline=False)
+  await ctx.send(embed=x)
+
+@help.command()
+async def ban(ctx):
+  x = discord.Embed(title='Banir', description='**Moderação**')
+  x.add_field(name='Sintaxe:', value=f'{prefixo}[ban, banir]', inline=False)
+  x.add_field(name='Descrição:', value='Comando para banir um membro do servidor.', inline=False)
+  await ctx.send(embed=x)
+
+@help.command()
+async def cargo(ctx):
+  x = discord.Embed(title='Cargo', description='**Moderação**')
+  x.add_field(name='Sintaxe:', value=f'{prefixo}[cargo]', inline=False)
+  x.add_field(name='Descrição:', value='Comando para adicionar uma cargo a um determinado membro.', inline=False)
+  await ctx.send(embed=x)
+
+@help.command()
+async def anime(ctx):
+  x = discord.Embed(title='Anime', description='**Diversão**')
+  x.add_field(name='Sintaxe:', value=f'{prefixo}[anime]', inline=False)
+  x.add_field(name='Descrição:', value='Uma imagem de anime aleatória.', inline=False)
+  await ctx.send(embed=x)
+
+@help.command()
+async def dado(ctx):
+  x = discord.Embed(title='Dado', description='**Diversão**')
+  x.add_field(name='Sintaxe:', value=f'{prefixo}[dado]', inline=False)
+  x.add_field(name='Descrição:', value='Para rolar um dado ou mais dados com modificardores (- ou +), de qualquer valor.', inline=False)
+  await ctx.send(embed=x)
+
+@help.command()
+async def moeda(ctx):
+  x = discord.Embed(title='Moeda', description='**Diversão**')
+  x.add_field(name='Sintaxe:', value=f'{prefixo}[moeda, cara, coroa]', inline=False)
+  x.add_field(name='Descrição:', value='Comando de cara ou coroa.', inline=False)
+  await ctx.send(embed=x)
+
+@help.command()
+async def dnd(ctx):
+  x = discord.Embed(title='D&D', description='**Diversão**')
+  x.add_field(name='Sintaxe:', value=f'{prefixo}[dnd, d&d]', inline=False)
+  x.add_field(name='Descrição:', value='Comando para ajudar jogadores de Dungeons & Dragons.', inline=False)
+  await ctx.send(embed=x)
+
+@help.command()
+async def hug(ctx):
+  x = discord.Embed(title='', description='**Diversão**')
+  x.add_field(name='Sintaxe:', value=f'{prefixo}[abraçar, hug]', inline=False)
+  x.add_field(name='Descrição:', value='Dê um abraço em alguém.', inline=False)
+  await ctx.send(embed=x)
+
+@help.command()
+async def bot(ctx):
+  x = discord.Embed(title='Bot', description='**Utilidades**')
+  x.add_field(name='Sintaxe:', value=f'{prefixo}[bot]', inline=False)
+  x.add_field(name='Descrição:', value='Comando para exibir informações do bot.', inline=False)
+  await ctx.send(embed=x)
+
+@help.command()
+async def server(ctx):
+  x = discord.Embed(title='Server', description='**Utilidades**')
+  x.add_field(name='Sintaxe:', value=f'{prefixo}[server]', inline=False)
+  x.add_field(name='Descrição:', value='Comando para exibir informações do servidor.', inline=False)
+  await ctx.send(embed=x)
+
+@help.command()
+async def user(ctx):
+  x = discord.Embed(title='', description='**Utilidades**')
+  x.add_field(name='Sintaxe:', value=f'{prefixo}[user]', inline=False)
+  x.add_field(name='Descrição:', value='Comando para exibir informações do usuário citado.', inline=False)
+  await ctx.send(embed=x)
+
+@help.command()
+async def ping(ctx):
+  x = discord.Embed(title='Ping', description='**Utilidades**')
+  x.add_field(name='Sintaxe:', value=f'{prefixo}[ping]', inline=False)
+  x.add_field(name='Descrição:', value='Mostrar latência atual do bot.', inline=False)
+  await ctx.send(embed=x)
+
+@help.command()
+async def membros(ctx):
+  x = discord.Embed(title='', description='**Utilidades**')
+  x.add_field(name='Sintaxe:', value=f'{prefixo}[membros]', inline=False)
+  x.add_field(name='Descrição:', value='Membros totais no servidor.', inline=False)
+  await ctx.send(embed=x)
+
+@help.command()
+async def say(ctx):
+  x = discord.Embed(title='', description='**Utilidades**')
+  x.add_field(name='Sintaxe:', value=f'{prefixo}[ban, banir]', inline=False)
+  x.add_field(name='Descrição:', value='Repetir o que foi digitado no comando.', inline=False)
+  await ctx.send(embed=x)
+
+@help.command()
+async def code(ctx):
+  x = discord.Embed(title='Code', description='**Utilidades**')
+  x.add_field(name='Sintaxe:', value=f'{prefixo}[code]', inline=False)
+  x.add_field(name='Descrição:', value='Formate seu código instantaneamente', inline=False)
+  await ctx.send(embed=x)
+
+@help.command()
+async def report(ctx):
+  x = discord.Embed(title='Reportar', description='**Utilidades**')
+  x.add_field(name='Sintaxe:', value=f'{prefixo}[report, reportar]', inline=False)
+  x.add_field(name='Descrição:', value='Para reportar erros ou bugs do bot para a equipe.', inline=False)
+  await ctx.send(embed=x)
 
 
-@bot.command()
+@lara.command()
 async def ping(ctx):
   calc = bot.latency * 1000
   pong = round(calc)
@@ -56,12 +173,16 @@ async def ping(ctx):
     msg = await ctx.send(embed=z)
     await msg.add_reaction('🏓')
 
-@bot.command()
-async def dado(ctx, numero=0, h='nada', mod=0):
+@lara.command()
+async def dado(ctx, numero=0, h='nada', mod=0, d=1):
+  r = []
+  while 0 < d:
+      r.append(random.randint(1, numero))
+      d = (d - 1)
+  total = sum(r)
   y = discord.Embed(title='Dados', description='🎲 Rolando dado...')
   if numero != 0 and h == 'nada':
-    var = random.randint(1, int(numero))
-    x = discord.Embed(title=f'**D{numero}**', description=f'{var}')
+    x = discord.Embed(title=f'**D{numero}**', description=f'{r} = {total}')
     x.set_author(name=ctx.author, icon_url=ctx.author.avatar_url)
     x.timestamp = datetime.datetime.utcnow()
     msg = await ctx.send(embed=y)
@@ -69,9 +190,8 @@ async def dado(ctx, numero=0, h='nada', mod=0):
     await msg.edit(embed=x)
     await msg.add_reaction('🎲')
   elif numero != 0 and h == '-':
-    var = random.randint(1, int(numero))
-    sub = (var - mod)
-    x = discord.Embed(title=f'**D{numero}**', description=f'{var} - {mod} = {sub}')
+    sub = (total - mod)
+    x = discord.Embed(title=f'**D{numero}**', description=f'{r} + {mod} = {sub}')
     x.set_author(name=ctx.author, icon_url=ctx.author.avatar_url)
     x.timestamp = datetime.datetime.utcnow()
     msg = await ctx.send(embed=y)
@@ -79,9 +199,8 @@ async def dado(ctx, numero=0, h='nada', mod=0):
     await msg.edit(embed=x)
     await msg.add_reaction('🎲')
   elif numero != 0 and h == '+':
-    var = random.randint(1, int(numero))
-    soma = (var + mod)
-    x = discord.Embed(title=f'**D{numero}**', description=f'{var} + {mod} = {soma}')
+    soma = (total + mod)
+    x = discord.Embed(title=f'**D{numero}**', description=f'{r} + {mod}  = {soma}')
     x.set_author(name=ctx.author, icon_url=ctx.author.avatar_url)
     x.timestamp = datetime.datetime.utcnow()
     msg = await ctx.send(embed=y)
@@ -92,7 +211,7 @@ async def dado(ctx, numero=0, h='nada', mod=0):
      await ctx.reply('**Você precisa definir um número máximo!**')
 
 
-@bot.command(name='cara ou coroa', aliases=['cara', 'coroa'], help='Jogue cara ou coroa!')
+@lara.command(name='cara ou coroa', aliases=['cara', 'coroa'], help='Jogue cara ou coroa!')
 async def moeda(ctx):
 
   var = random.randint(1, 2)
@@ -104,16 +223,7 @@ async def moeda(ctx):
     await msg.add_reaction('👑')
 
 
-@bot.command(name='ddq')
-async def desq(ctx, numero):
-  a = int(numero)
-  if a == 8:
-    await ctx.send('Acertou!')
-  elif a != 8:
-    await ctx.send('Errou!')
-
-
-@bot.command(name='developer', help='Você é o developer?')
+@lara.command(name='developer', help='Você é o developer?')
 async def dev(ctx):
   if ctx.author.id == heitor:
     await ctx.send('Você é o desenvolvedor!')
@@ -121,21 +231,7 @@ async def dev(ctx):
     await ctx.send('Você não é o desenvolvedor!')
 
 
-@bot.command(name='sugestão')
-async def sug(ctx, *, message=None):
-  if message != None:
-    x = discord.Embed(title='SUGESTÃO', description=f'{message}', color=0x000000)
-    x.set_author(name=ctx.author, icon_url=ctx.author.avatar_url)
-    x.timestamp = datetime.datetime.utcnow()
-    msg = await ctx.channel.send(embed=x)
-    await msg.add_reaction('✅')
-    await msg.add_reaction('❌')
-  else:
-    await ctx.reply('**Dê sua sugestão!**')
-
-
-
-@bot.command(name='Tess')
+@lara.command(name='Tess')
 async def T(ctx):
   x = discord.Embed(title='**TESS-CHAN**', description=f'Você é uma pessoa incrível, realmente sou muito sortudo por ter você como amiga!')
   x.timestamp = datetime.datetime.utcnow()
@@ -148,13 +244,13 @@ async def T(ctx):
     await msg.add_reaction('😒')
 
 
-@bot.command(name='animes')
+@lara.command(name='animes')
 async def anime(ctx):
   img = random.randint(1, 200)
   await ctx.send(f'https://larab0tbeta.heitordjak47.repl.co/galeria/{img}.jpg')
 
 
-@bot.command(name='repetir')
+@lara.command(name='repetir')
 async def say(ctx, *, message):
   try:
     await ctx.send(message)
@@ -163,7 +259,7 @@ async def say(ctx, *, message):
     await ctx.send('Por favor, dê alguma mensagem!')
 
 
-@bot.command(name='code', description='Pra usar este comando: coloque a extensão da linguagem, depois faça uma quebra de linha e insira o código')
+@lara.command(name='code', description='Pra usar este comando: coloque a extensão da linguagem, depois faça uma quebra de linha e insira o código')
 async def code(ctx, prog=None, *, code):
   user = ctx.message.author.display_name
   try:
@@ -173,13 +269,13 @@ async def code(ctx, prog=None, *, code):
     await ctx.send('Por favor, insira o código!')
 
 
-@bot.command(name='oloko')
+@lara.command(name='oloko')
 async def rolada_no_heitor(ctx):
   msg = await ctx.send('Rolada nele!')
   await msg.add_reaction('😒')
 
 
-@bot.command(name='loja')
+@lara.command(name='loja')
 async def loja(ctx):
   y = discord.Embed(title='**Loja!**', description='Abrindo a loja...')
   #
@@ -196,7 +292,7 @@ async def loja(ctx):
   await msg.add_reaction('💵')
 
 
-@bot.command()
+@lara.command()
 async def kick(ctx, membro : discord.Member, *, motivo=None):
   x = discord.Embed(title='**Expulsão**')
   x.add_field(name='*Membro Expulso:*', value=f'{membro.mention}', inline=True)
@@ -207,7 +303,7 @@ async def kick(ctx, membro : discord.Member, *, motivo=None):
   await ctx.send(embed=x)
 
 
-@bot.command()
+@lara.command()
 async def ban(ctx, membro : discord.Member, *, motivo=None):
   x = discord.Embed(title='**Expulsão**')
   x.add_field(name='*Membro Banido:*', value=f'{membro.mention}', inline=True)
@@ -218,7 +314,7 @@ async def ban(ctx, membro : discord.Member, *, motivo=None):
   await ctx.send(embed=x)
 
 
-@bot.command(aliases=['d&d'])
+@lara.command(aliases=['d&d'])
 async def dnd(ctx, comando=0):
   if comando == 0:
     z = '```'
@@ -272,7 +368,7 @@ async def dnd(ctx, comando=0):
     await ctx.send(embed=x)
 
 
-@bot.command()
+@lara.command()
 async def cargo(ctx, user : discord.Member, cargo : discord.Role):
   await user.add_roles(cargo)
   x = discord.Embed(title='Cargo adicionado!')
@@ -285,7 +381,7 @@ async def cargo(ctx, user : discord.Member, cargo : discord.Role):
   await msg.add_reaction('✅')
 
 
-@bot.command(alises=['usuario', 'u'])
+@lara.command(alises=['usuario', 'u'])
 async def user(ctx, membro : discord.Member = 'nada'):
   if membro != 'nada':
     x = discord.Embed(title='**Informações:**')
@@ -307,7 +403,7 @@ async def user(ctx, membro : discord.Member = 'nada'):
     await ctx.send(embed=x)
 
 
-@bot.command()
+@lara.command()
 async def server(ctx):
   membros = len(ctx.guild.members)
   cargos = len(ctx.guild.roles)
@@ -317,18 +413,18 @@ async def server(ctx):
   x.add_field(name='Dono:', value=ctx.guild.owner.mention, inline=False)
   x.add_field(name='Criado em:', value=ctx.guild.created_at.strftime('Data: %d/%m/%Y Hora: %H:%M:%S %p'), inline=False)
   x.add_field(name='Região:', value=ctx.guild.region, inline=False)
-  x.add_field(name='Membros:', value=membros, inline=False)
-  x.add_field(name=f'Cargos:', value=cargo, inline=False)
+  x.add_field(name='Membros:', value=f'`{membros}`', inline=False)
+  x.add_field(name=f'Cargos:', value=f'`{cargos}`', inline=False)
   x.set_thumbnail(url=ctx.guild.icon_url)
   x.set_author(name=ctx.author, icon_url=ctx.author.avatar_url)
   x.timestamp = datetime.datetime.utcnow()
   await ctx.send(embed=x)
 
 
-@bot.command()
+@lara.command()
 async def report(ctx, *, report=None):
   z = discord.Embed(title='Novo Erro!', description='Carregando o report...')
-  canal = bot.get_channel(754741603230416896)
+  canal = lara.get_channel(754741603230416896)
   x = discord.Embed(title='**Report de Erro!**')
   x.add_field(name='Server:', value=ctx.guild.name, inline=False)
   x.add_field(name='ID do Server:', value=ctx.guild.id, inline=False)
@@ -348,10 +444,10 @@ async def report(ctx, *, report=None):
   await ctx.author.send(embed=y)
 
 
-@bot.command()
+@lara.command()
 async def reportar(ctx, *, text=None):
   z = discord.Embed(title='Novo Erro!', description='Carregando o report...')
-  dm = bot.get_user(heitor)
+  dm = lara.get_user(heitor)
   x = discord.Embed(title='**Report de Erro!**')
   x.add_field(name='Server:', value=ctx.guild.name, inline=False)
   x.add_field(name='ID do Server:', value=ctx.guild.id, inline=False)
@@ -371,7 +467,7 @@ async def reportar(ctx, *, text=None):
   await ctx.author.send(embed=y)
 
 
-@bot.command(aliases=['team', 'lara', 'eq'])
+@lara.command(aliases=['team', 'lara', 'eq'])
 async def equipe(ctx):
   y = discord.Embed(title='Equipe Lara', description='*Verificando*...')
   if ctx.author.id == heitor:
@@ -404,28 +500,20 @@ async def equipe(ctx):
     await msg.edit(f'Olá {ctx.author.display_name}, esse comando está reservado apenas para membros da Equipe!')
 
 
-@bot.command()
+@lara.command()
 async def clear(ctx, n=0):
   if n <= 0:
     await ctx.send('Você precisa digitar a quantidade de menssagens para serem deletadas')
   else:
     await ctx.channel.purge(limit=int(n))
     x = discord.Embed(title='Sistema de Limpar!')
-    x.add_field(name='Menssagens deletadas:', value=n)
+    x.add_field(name='Menssagens deletadas:', value=f'{n}')
     x.set_author(name=ctx.author, icon_url=ctx.author.avatar_url)
     x.timestamp = datetime.datetime.utcnow()
     msg = await ctx.send(embed=x)
 
 
-@bot.command()
-async def darth(ctx):
-  x = discord.Embed(title="Darth Gemidos!")
-  x.set_author(name=ctx.author, icon_url=ctx.author.avatar_url)
-  x.timestamp = datetime.datetime.utcnow()
-  msg = await ctx.send(embed=x)
-
-
-@bot.command(alises=['foto', 'img'])
+@lara.command(alises=['foto', 'img'])
 async def avatar(ctx, membro : discord.Member = 'nada'):
   if membro != 'nada':
     x = discord.Embed(title=f'Avatar de {membro.display_name}')
@@ -439,93 +527,60 @@ async def avatar(ctx, membro : discord.Member = 'nada'):
     await ctx.send(embed=x)
 
 
-@bot.command()
-async def botinfo(ctx):
-  calc = bot.latency * 1000
+@lara.command()
+async def bot(ctx):
+  calc = lara.latency * 1000
   pong = round(calc)
-  a = bot.get_user(heitor)
-  b = bot.get_user(tess)
-  c = bot.get_user(ikki)
+  a = lara.get_user(heitor)
+  b = lara.get_user(tess)
+  c = lara.get_user(ikki)
   x = discord.Embed(title='Bot Info:')
-  x.add_field(name='Nome:', value=bot.user.display_name, inline=True)
-  x.add_field(name='ID:', value=bot.user.id, inline=True)
-  x.add_field(title='Ping:', value=pong, inline=True)
-  x.add_field(name='Criado em:', value=bot.user.created_at.strftime('Data: %d/%m/%Y Hora: %H:%M:%S %p'), inline=True)
+  x.add_field(name='Nome:', value=lara.user.display_name, inline=True)
+  x.add_field(name='ID:', value=lara.user.id, inline=True)
+  x.add_field(name='Ping:', value=f'`{pong}`', inline=True)
+  x.add_field(name='Criado em:', value=lara.user.created_at.strftime('Data: %d/%m/%Y Hora: %H:%M:%S %p'), inline=True)
   x.add_field(name='criador:', value=a.display_name, inline=False)
   x.add_field(name='Equipe:', value=f'{b.display_name} e {c.display_name}', inline=False)
-  x.set_thumbnail(url=bot.avatar_url)
+  x.set_thumbnail(url=user.avatar_url)
   x.timestamp = datetime.datetime.utcnow()
   msg = await ctx.send(embed=x)
   await msg.add_reaction('<:LaraBoT:773736694733996062>')
 
 
-@bot.command(aliases=['ferreiro', 'aviao', 'ar', 'empresa'])
-async def sukhoi(ctx):
-    ooo = discord.Embed(title='Sukhoi', description='...')
-    a = discord.Embed(title='Ferreiro', description='Heitor, pesquisa sukhoi no google.')
-    b = discord.Embed(title='Heitor', description='Porr@ ferreiro, uma empresa!')
-    c = discord.Embed(title='Ferreiro', description='Agora coloca em imagens.')
-    d = discord.Embed(title='Heitor', description='PORR@ FERREIRO!')
-    #######
-    msg = await ctx.send(embed=a)
-    await asyncio.sleep(2.0)
-    await msg.edit(embed=ooo)
-    await asyncio.sleep(2.0)
-    await msg.edit(embed=b)
-    await asyncio.sleep(2.0)
-    await msg.edit(embed=c)
-    await asyncio.sleep(2.0)
-    await msg.edit(embed=ooo)
-    await asyncio.sleep(2.0)
-    await msg.edit(embed=d)
+@lara.command()
+async def membros(ctx):
+  mb = len(ctx.guild.members)
+  await ctx.send(f'Este servidor possui: {mb} membros')
 
 
-@bot.command(aliases=['ruim', 'mds'])
-async def ruler(ctx):
-    ooo = discord.Embed(title='Rpg do Ruler', description='...')
-    a = discord.Embed(title='Ruler', description='Beleza, rola o d20.')
-    b = discord.Embed(title='Mateus', description='Deu 20!')
-    c = discord.Embed(title='Ruler', description='Cê acerta o monstro.')
-    d = discord.Embed(title='Mateus', description='A blz')
-    e = discord.Embed(title='Mateus', description='O raio sai das minhas mãos.')
-    f = discord.Embed(title='Ruler', description='Não, não. O raio veio do céu.')
-    g = discord.Embed(title='Mateus', description='Pera... Ele atravessou a caverna?')
-    h = discord.Embed(title='Ruler', description='Não. Ele veio do céu, fez uma curva e entrou pela entrada da caverna e acertou o bicho.')
-    i = discord.Embed(title='Erick', description='COMO ASSIM, O RAIO FEZ DRIFT?')
-    j = discord.Embed(title='Ruler', description='Sim!')
-    k = discord.Embed(title='Erick', description='A')
-    #######
-    msg = await ctx.send(embed=a)
-    await asyncio.sleep(2.0)
-    await msg.edit(embed=ooo)
-    await asyncio.sleep(2.0)
-    await msg.edit(embed=b)
-    await asyncio.sleep(2.0)
-    await msg.edit(embed=c)
-    await asyncio.sleep(2.0)
-    await msg.edit(embed=d)
-    await asyncio.sleep(2.0)
-    await msg.edit(embed=e)
-    await asyncio.sleep(2.0)
-    await msg.edit(embed=f)
-    await asyncio.sleep(2.0)
-    await msg.edit(embed=g)
-    await asyncio.sleep(2.0)
-    await msg.edit(embed=h)
-    await asyncio.sleep(5.0)
-    await msg.edit(embed=i)
-    await asyncio.sleep(2.0)
-    await msg.edit(embed=j)
-    await asyncio.sleep(2.0)
-    await msg.edit(embed=k)
+@lara.command(aliases=['contribuir', 'sugestao'])
+async def sug(ctx, *, message):
+  canal = lara.get_channel(chsug)
+  x = discord.Embed(title='Nova sugestão')
+  x.add_field(name='Membro:', value=ctx.author, inline=False)
+  x.add_field(name='`Sugerido:`', value=message, inline=False)
+  x.timestamp = datetime.datetime.utcnow()
+  await canal.send(embed=x)
+  await ctx.message.add_reaction('✅')
 
 
-@bot.command()
-async def rolls(ctx, d=0, x=0):
-  r = []
-  while 0 < d:
-    r.append(random.randint(1, x))
-    d = (d - 1)
-  await ctx.send(r)
+@lara.command(aliases=['feedback', 'fb'])
+async def feed(ctx, *, message):
+  canal = lara.get_channel(chfeed)
+  x = discord.Embed(title='Nova FeedBack')
+  x.add_field(name='Membro:', value=ctx.author, inline=False)
+  x.add_field(name='`FeedBack:`', value=message, inline=False)
+  x.timestamp = datetime.datetime.utcnow()
+  await canal.send(embed=x)
+  await ctx.message.add_reaction('✅')
 
-bot.run(token)
+
+@lara.command()
+async def hug(ctx, membro : discord.Member):
+  x = discord.Embed(title='Abraçooo!', description=f'{ctx.author.mention} abraçou {membro.mention}')
+  x.set_image(url='https://larab0tbeta.heitordjak47.repl.co/galeria/1.jpg')
+  x.timestamp = datetime.datetime.utcnow()
+  msg = await ctx.channel.send(embed=x)
+  await msg.add_reaction('❤')
+
+lara.run(token)
