@@ -15,6 +15,7 @@ with open('config.json') as e:
 	chsug = infos['chsug']
 	chfeed = infos['chfeed']
 	chrpt = infos['chrpt']
+	servidor = infos['servidor']
 
 lara = commands.Bot(command_prefix=prefixo)
 
@@ -26,13 +27,16 @@ class bots_cog(commands.Cog):
 	async def bot(self, ctx):
 		calc = self.lara.latency * 1000
 		pong = round(calc)
-		x = discord.Embed(title='Bot Info:')
-		x.add_field(name='Nome:', value=self.lara.user.display_name, inline=True)
-		x.add_field(name='ID:', value=self.lara.user.id, inline=True)
-		x.add_field(name='Ping:', value=f'{pong} `ms`', inline=True)
-		x.add_field(name='Criado em:', value=self.lara.user.created_at.strftime('Data: %d/%m/%Y Hora: %H:%M:%S %p'), inline=False)
-		x.add_field(name='criador:', value=self.lara.get_user(heitor).display_name, inline=True)
-		x.add_field(name='Equipe:', value=f'{self.lara.get_user(tess).display_name} e {self.lara.get_user(ikki).display_name}', inline=True)
+		x = discord.Embed(title='<a:pinkarrow:882604328400093194> Bot Info:', color=0xffcbdb)
+		x.add_field(name='📝 Nome:', value=self.lara.user.display_name, inline=True)
+		x.add_field(name='🆔 ID:', value=self.lara.user.id, inline=True)
+		x.add_field(name='🇧🇷 Região:', value='Brasil', inline=True)
+		x.add_field(name='👥 Membros Globais:', value=f'{len(self.lara.users)}', inline=True)
+		x.add_field(name='🌎 Servidores Globais:', value=f'{len(self.lara.guilds)}', inline=True)
+		x.add_field(name='<:space_bottle:882600683205967912> Ping:', value=f'{pong} `ms`', inline=True)
+		x.add_field(name='📅 Criado em:', value=self.lara.user.created_at.strftime(f'Data: %d/%m/%Y \n Hora: %H:%M:%S %p'), inline=True)
+		x.add_field(name='<:dev:782025401274335272> Criador:', value=self.lara.get_user(heitor).display_name, inline=True)
+		x.add_field(name='<a:sparklespinkpastel:882604766771945514> Equipe:', value=f'{self.lara.get_user(tess).display_name} e {self.lara.get_user(ikki).display_name}', inline=True)
 		x.set_thumbnail(url=self.lara.user.avatar_url)
 		x.timestamp = datetime.datetime.utcnow()
 		msg = await ctx.send(embed=x)
@@ -47,7 +51,7 @@ class bots_cog(commands.Cog):
 		x.add_field(name='`FeedBack:`', value=message, inline=False)
 		x.timestamp = datetime.datetime.utcnow()
 		await canal.send(embed=x)
-		await ctx.message.add_reaction('✅')
+		await ctx.message.add_reaction('<a:yeah:882026711376609360>')
 
 
 	@commands.command(aliases=['contribuir', 'sugestao', 'sugerir'])
@@ -58,11 +62,12 @@ class bots_cog(commands.Cog):
 		x.add_field(name='`Sugerido:`', value=message, inline=False)
 		x.timestamp = datetime.datetime.utcnow()
 		await canal.send(embed=x)
-		await ctx.message.add_reaction('✅')
+		await ctx.message.add_reaction('<a:yeah:882026711376609360>')
 
 
 	@commands.command(aliases=['reportar'])
 	async def report(self, ctx, *, texto=None):
+		s = self.lara.get_guild(servidor)
 		z = discord.Embed(title='Novo Erro!', description='Carregando o report...')
 		canal = self.lara.get_channel(chrpt)
 		x = discord.Embed(title='**Report de Erro!**')
@@ -76,10 +81,11 @@ class bots_cog(commands.Cog):
 		await asyncio.sleep(0.8)
 		await msg.edit(embed=x)
 		#Developer
-		await ctx.message.add_reaction('✅')
+		await ctx.message.add_reaction('<a:yeah:882026711376609360>')
 		#reação
 		y = discord.Embed(title='#Equipe Lara B0T')
 		y.add_field(name=f'**Olá {ctx.author.display_name}**', value='*Agradecemos pela sua colaboração com nosso projeto, iremos analisar o problema e solucioná-lo!*')
+		y.set_thumbnail(url=s.icon_url)
 		y.timestamp = datetime.datetime.utcnow()
 		await ctx.author.send(embed=y)
 
@@ -88,7 +94,6 @@ class bots_cog(commands.Cog):
 	async def ping(self, ctx):
 		calc = self.lara.latency * 1000
 		pong = round(calc)
-		await ctx.message.delete()
 
 		x = discord.Embed(title='**Pong**', description=f'{pong} `ms`', color=0xff0000)
 

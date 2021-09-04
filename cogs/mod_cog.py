@@ -3,9 +3,14 @@ from discord.ext import commands
 import random
 import datetime
 import asyncio
+import json
+
+with open('config.json') as e:
+    infos = json.load(e)
+    prefixo = infos['prefix']
 
 class mod_cog(commands.Cog):
-    def __init__(self, lara):
+    def __init__ (self, lara):
         self.lara = lara
 
     @commands.command(aliases=['expulsar'])

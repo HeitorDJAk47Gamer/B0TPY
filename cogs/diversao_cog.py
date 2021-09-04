@@ -115,19 +115,19 @@ class diversao_cog(commands.Cog):
         msg = await ctx.send(embed=x)
 
     @dnd.command(aliases=['compra'])
-    async def cp(ctx):
+    async def cp(self, ctx):
         x = discord.Embed(title='**Compra de Pontos**')
         x.set_image(url='https://cdn.discordapp.com/attachments/753004109790969867/853721835899715604/cp.png')
         await ctx.send(embed=x)
 
     @dnd.command(aliases=['modificardores', 'bonus'])
-    async def mod(ctx):
+    async def mod(self, ctx):
         x = discord.Embed(title='**Modificadores**')
         x.set_image(url='https://cdn.discordapp.com/attachments/753004109790969867/853721845420261386/mod.png')
         await ctx.send(embed=x)
 
     @dnd.command(aliases=['distribuir'])
-    async def dp(ctx):
+    async def dp(self, ctx):
         x = discord.Embed(title='**Distribuição de pontos pré-Definida**')
         x.add_field(name='*Você pode usar os seguintes valores:*', value='15, 14, 13, 12, 10, 8.', inline=False)
         x.add_field(name='*Diatribua esses valores entre:*', value='**Força, Destreza, Constituição, Inteligência, Sabedoria, Carisma**', inline=False)
@@ -136,24 +136,25 @@ class diversao_cog(commands.Cog):
         await ctx.send(embed=x)
 
     @dnd.command(aliases=['classe', 'dificuldade'])
-    async def cd(ctx):
+    async def cd(self, ctx):
         d = discord.Embed(title='**CD**')
         d.set_image(url='https://cdn.discordapp.com/attachments/753004109790969867/853721828162011146/cd.png')
         await ctx.send(embed=d)
 
     @dnd.command(aliases=['e5'])
-    async def ficha(ctx):
+    async def ficha(self, ctx):
         x = discord.Embed(title='**Ficha**', url='https://cdn.discordapp.com/attachments/753004109790969867/853721843785531422/dd-5e-ficha-de-personagem-automatica-biblioteca-elfica.pdf', description='Clique para baixar a ficha D&De5 em Português BR automática.')
-        await ctx.send(embed=x)
+        msg = await ctx.send(embed=x)
+        await msg.add_reaction('<a:download:882601000945483776>')
 
     @dnd.command(aliases=['money' 'ganhos'])
-    async def ouro(ctx):
+    async def ouro(self, ctx):
         x = discord.Embed(title='**Ouro Inicial**')
         x.set_image(url='https://cdn.discordapp.com/attachments/753004109790969867/853721847496966204/ouro.jpg')
         await ctx.send(embed=x)
 
     @dnd.command(aliases=['pacote', 'pacotes'])
-    async def pct(ctx):
+    async def pct(self, ctx):
         x = discord.Embed(title='**Pacotes**')
         x.set_image(url='https://cdn.discordapp.com/attachments/866686570894196746/876224208512909322/Screenshot_20210724-132835-717.png')
         await ctx.send(embed=x)

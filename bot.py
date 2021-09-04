@@ -18,7 +18,7 @@ async def on_ready():
     calc = lara.latency * 1000
     pong = round(calc)
 
-    await lara.change_presence(activity=discord.Activity(type=discord.ActivityType.listening, name='Discord.PY'))
+    await lara.change_presence(activity=discord.Activity(type=discord.ActivityType.listening, name=f'{len(lara.users)} Membros'))
     print(f'Nome: {lara.user}  ID: {lara.user.id}')
     print(f'Membros Globais: {len(lara.users)}')
     print(f'Servidores Globais: {len(lara.guilds)}')
@@ -27,5 +27,6 @@ async def on_ready():
 for filename in os.listdir('./cogs'):
     if filename.endswith('.py'):
         lara.load_extension(f'cogs.{filename[:-3]}')
+        print(f'{filename[:-3]} carregado!')
 
 lara.run(token)

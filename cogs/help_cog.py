@@ -211,5 +211,14 @@ class help_cog(commands.Cog):
 		x.add_field(name='Descrição:', value='Veja os itens disponíveis para comprar na Loja Lara!', inline=False)
 		await ctx.send(embed=x)
 
+	@help.command(aliases=['música', 'musica'])
+	async def music(self, ctx):
+		x = discord.Embed(title='Sistema de música', url='https://discord.com/oauth2/authorize?client_id=754474576078962769&scope=bot&permissions=8', description='Clique em Sistema de música para convidar Flitser.')
+		x.add_field(name='Categoria:', value='Música', inline=True)
+		x.add_field(name='Sintaxe:', value=f'{prefixo}[music, musica]', inline=True)
+		x.add_field(name='Descrição:', value='No momento não temos comandos de música disponíveis´, porém temos nosso bot de música!', inline=False)
+		x.set_image(url='https://media.discordapp.net/attachments/771439991846862948/881948701390667836/1630343344530.png?width=409&height=409')
+		await ctx.send(embed=x)
+
 def setup(lara):
 	lara.add_cog(help_cog(lara))
