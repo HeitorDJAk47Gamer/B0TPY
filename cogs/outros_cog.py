@@ -16,19 +16,6 @@ class outros_cog(commands.Cog):
 	def __init__(self, lara):
 		self.lara = lara
 
-	@commands.command(aliases=['clean', 'limpar'])
-	async def clear(self, ctx, n=0):
-		if n <= 0:
-			await ctx.send('Você precisa digitar a quantidade de menssagens para serem deletadas')
-		else:
-			await ctx.channel.purge(limit=int(n))
-			x = discord.Embed(title='Sistema de Limpar!')
-			x.add_field(name='Menssagens deletadas:', value=f'{n}')
-			x.set_author(name=ctx.author, icon_url=ctx.author.avatar_url)
-			x.timestamp = datetime.datetime.utcnow()
-			msg = await ctx.send(embed=x)
-
-
 	@commands.command(aliases=['developer'])
 	async def dev(self, ctx):
 		if ctx.author.id == heitor:
@@ -89,6 +76,48 @@ class outros_cog(commands.Cog):
 			msg = await ctx.send(embed=y)
 			await asyncio.sleep(1.0)
 			await msg.edit(f'Olá {ctx.author.display_name}, esse comando está reservado apenas para membros da Equipe!')
+
+	@commands.command()
+	async def ik(self, ctx):
+		a = await ctx.send('Tu é?')
+		await asyncio.sleep(2.0)
+		await ctx.send('Ihh Rapaiz')
+
+	@commands.command()
+	async def defala(self, ctx):
+		if ctx.author.id == 646167529043263509:
+			await ctx.send('')
+		else:
+			await ctx.send('Você não é Defala!')
+
+	@commands.command(aliases=['game', 'cube'])
+	async def hairo(self, ctx):
+		x = discord.Embed(title=f'Geometry Hunter', url='https://hairohukosu.excepti0n.repl.co/')
+		x.add_field(name=f'Criação:', value=f'Criado por HairoHukosu, **Geometry Hunter** é um jogo que inicialmente foi criado em apenas uma semana, mas ainda recebe atualizações.', inline=False)
+		x.add_field(name=f'Sobre:', value=f'O jogo se trata em que o protagonista que é um cubo azul deve derrotar um mostro de apenas um olho.', inline=False)
+		x.set_thumbnail(url='https://cdn.discordapp.com/attachments/753004109790969867/893159772336054282/1633016277829.png')
+		x.timestamp = datetime.datetime.utcnow()
+		msg = await ctx.send(embed=x)
+		await msg.add_reaction('<:cube:893157937890074714>')
+
+
+	@commands.command()
+	async def bn(self, ctx, membro: discord.Member):
+
+		message = await ctx.send(f"Are you sure you want to ban {membro}?")
+		check = lambda m: m.author == ctx.author and m.channel == ctx.channel
+
+		try:
+			confirm = await self.lara.wait_for("message", check=check, timeout=30)
+		except asyncio.TimeoutError:
+			await message.edit(content="Ban cancelled, timed out.")
+			return
+
+		if confirm.content == "yes":
+			await message.edit(content=f"{member} has been banned.")
+			return
+
+		await message.edit(content="Ban cancelled.")
 
 def setup(lara):
 	lara.add_cog(outros_cog(lara))

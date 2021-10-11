@@ -7,7 +7,6 @@ import asyncio
 
 with open('config.json') as e:
 	infos = json.load(e)
-	prefixo = infos['prefix']
 	heitor = infos['heitor']
 	tess = infos['tess']
 	ikki = infos['ikki']
@@ -16,8 +15,6 @@ with open('config.json') as e:
 	chfeed = infos['chfeed']
 	chrpt = infos['chrpt']
 	servidor = infos['servidor']
-
-lara = commands.Bot(command_prefix=prefixo)
 
 class bots_cog(commands.Cog):
 	def __init__(self, lara):
@@ -52,7 +49,7 @@ class bots_cog(commands.Cog):
 		x.timestamp = datetime.datetime.utcnow()
 		await canal.send(embed=x)
 		await ctx.message.add_reaction('<a:yeah:882026711376609360>')
-
+#comando para feedback
 
 	@commands.command(aliases=['contribuir', 'sugestao', 'sugerir'])
 	async def sug(self, ctx, *, message):
@@ -63,7 +60,7 @@ class bots_cog(commands.Cog):
 		x.timestamp = datetime.datetime.utcnow()
 		await canal.send(embed=x)
 		await ctx.message.add_reaction('<a:yeah:882026711376609360>')
-
+#comando de sugestão
 
 	@commands.command(aliases=['reportar'])
 	async def report(self, ctx, *, texto=None):
@@ -88,7 +85,7 @@ class bots_cog(commands.Cog):
 		y.set_thumbnail(url=s.icon_url)
 		y.timestamp = datetime.datetime.utcnow()
 		await ctx.author.send(embed=y)
-
+#report
 
 	@commands.command()
 	async def ping(self, ctx):

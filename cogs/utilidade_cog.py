@@ -1,6 +1,6 @@
 import discord
 from discord.ext import commands
-import sys
+from discord.ext.commands import cooldown, BucketType, has_permissions, MissingPermissions
 import random
 import datetime
 import asyncio
@@ -49,33 +49,41 @@ class utilidade_cog(commands.Cog):
 			for role in membro.roles:
 				if role.name != "@everyone":
 					rm.append(role.mention)
+			rms = "".join(rm)
+			y = discord.Embed(title='', description=f'**Carregando**\n<a:typing:892412508332253224>')
 			x = discord.Embed(title='**Informações:**')
-			x.add_field(name='Nome:', value=membro.display_name, inline=False)
-			x.add_field(name='ID:', value=membro.id, inline=False)
+			x.add_field(name='Nome:', value=membro.display_name, inline=True)
+			x.add_field(name='ID:', value=membro.id, inline=True)
+			x.add_field(name='Status:', value=f'`{membro.status}`', inline=True)
 			x.add_field(name='Criado em:', value=membro.created_at.strftime(f'Data: %d/%m/%Y \n Hora: %H:%M:%S %p'), inline=True)
 			x.add_field(name='Entrou em:', value=membro.joined_at.strftime(f'Data: %d/%m/%Y \n Hora: %H:%M:%S %p'), inline=True)
-			x.add_field(name='Status:', value=f'`{membro.status}`', inline=True)
-			x.add_field(name=f'Cargos:', value=f'{rm}', inline=False)
+			x.add_field(name=f'Cargos:', value=f'{rms}', inline=False)
 			x.set_thumbnail(url=membro.avatar_url)
 			x.set_author(name=ctx.author, icon_url=ctx.author.avatar_url)
 			x.timestamp = datetime.datetime.utcnow()
-			await ctx.send(embed=x)
+			msg = await ctx.send(embed=y)
+			await asyncio.sleep(0.5)
+			await msg.edit(embed=x)
 		else:
 			rm = []
 			for role in ctx.author.roles:
 				if role.name != "@everyone":
 					rm.append(role.mention)
+			rms = "".join(rm)
+			y = discord.Embed(title='', description=f'**Carregando**\n<a:typing:892412508332253224>')
 			x = discord.Embed(title='**Informações:**')
-			x.add_field(name='Nome:', value=ctx.author.display_name, inline=False)
+			x.add_field(name='Nome:', value=ctx.author.display_name, inline=True)
 			x.add_field(name='ID:', value=ctx.author.id, inline=True)
-			x.add_field(name='Criado em:', value=ctx.guild.created_at.strftime(f'Data: %d/%m/%Y \n Hora: %H:%M:%S %p'), inline=True)
-			x.add_field(name='Entrou em:', value=ctx.author.joined_at.strftime(f'Data: %d/%m/%Y \n Hora: %H:%M:%S %p'), inline=True)
 			x.add_field(name='Status:', value=f'`{ctx.author.status}`', inline=True)
-			x.add_field(name=f'Cargos:', value=f'{rm}', inline=False)
+			x.add_field(name='Criado em:', value=ctx.author.created_at.strftime(f'Data: %d/%m/%Y \n Hora: %H:%M:%S %p'), inline=True)
+			x.add_field(name='Entrou em:', value=ctx.author.joined_at.strftime(f'Data: %d/%m/%Y \n Hora: %H:%M:%S %p'), inline=True)
+			x.add_field(name=f'Cargos:', value=f'{rms}', inline=False)
 			x.set_thumbnail(url=ctx.author.avatar_url)
 			x.set_author(name=ctx.author, icon_url=ctx.author.avatar_url)
 			x.timestamp = datetime.datetime.utcnow()
-			await ctx.send(embed=x)
+			msg = await ctx.send(embed=y)
+			await asyncio.sleep(0.5)
+			await msg.edit(embed=x)
 
 
 	@commands.command(aliases=['sv', 'servidor'])
@@ -84,6 +92,7 @@ class utilidade_cog(commands.Cog):
 		for role in ctx.guild.roles:
 			if role.name != "@everyone":
 				rm.append(role.mention)
+		rms = "".join(rm)
 		membros = len(ctx.guild.members)
 		cargos = len(ctx.guild.roles)
 		texto = len(ctx.guild.text_channels)
@@ -105,7 +114,7 @@ class utilidade_cog(commands.Cog):
 		x.add_field(name=f'📂 Categorias:', value=f'`{cat}`', inline=False)
 		x.add_field(name=f'💬 Texto:', value=f'`{texto}`', inline=True)
 		x.add_field(name=f'🔊 Voz:', value=f'`{voz}`', inline=True)
-		x.add_field(name=f'🔐 Cargos: `({cargos})`', value=f'{rm}', inline=False)
+		x.add_field(name=f'🔐 Cargos: `({cargos})`', value=f'{rms}', inline=False)
 		x.set_thumbnail(url=ctx.guild.icon_url)
 		x.set_author(name=ctx.author, icon_url=ctx.author.avatar_url)
 		x.timestamp = datetime.datetime.utcnow()
@@ -129,19 +138,75 @@ class utilidade_cog(commands.Cog):
 		else:
 			await ctx.send('Por favor, insira o código!')
 
-
 	@commands.command()
 	async def emojis(self, ctx):
 		x = []
 		w = []
 		for emoji in ctx.guild.emojis:
-			if emoji.animated == False:
-				y = f'<:{emoji.name}:{emoji.id}>'
-				x.append(y)
+			if emoji.animated:
+				if not emoji.managed:
+					z = f'<a:{emoji.name}:{emoji.id}>'
+					w.append(z)
 			else:
-				z = f'<a:{emoji.name}:{emoji.id}>'
-				w.append(z)
-		await ctx.send(f'Emojis Não animados: {x}\nEmojis Animados: {w}')
+				if not emoji.managed:
+					y = f'<:{emoji.name}:{emoji.id}>'
+					x.append(y)
+		emojix = "".join(x)
+		emojiw = "".join(w)
+		await ctx.send(f'Emojis Não animados: {emojix}\nEmojis Animados: {emojiw}')
+
+	@commands.command(aliases=['clean', 'limpar'])
+	@has_permissions(manage_messages=True)
+	async def clear(self, ctx, n=0):
+		if n <= 0:
+			await ctx.send('Você precisa digitar a quantidade de menssagens para serem deletadas')
+		else:
+			await ctx.channel.purge(limit=int(n))
+			x = discord.Embed(title='Sistema de Limpar!')
+			x.add_field(name='Menssagens deletadas:', value=f'{n}')
+			x.set_author(name=ctx.author, icon_url=ctx.author.avatar_url)
+			x.timestamp = datetime.datetime.utcnow()
+			msg = await ctx.send(embed=x)
+
+	@commands.command()
+	async def emlist(self, ctx):
+		if ctx.channel.id == 893942602443915314:
+			await ctx.channel.purge(limit=int(10))
+		x = []
+		w = []
+		for emoji in ctx.guild.emojis:
+			if emoji.animated:
+				if not emoji.managed:
+					z = f'<a:{emoji.name}:{emoji.id}> `<a:{emoji.name}:{emoji.id}>`\n'
+					w.append(z)
+			else:
+				if not emoji.managed:
+					y = f'<:{emoji.name}:{emoji.id}> `<:{emoji.name}:{emoji.id}>`\n'
+					x.append(y)
+		emojix = "".join(x)
+		emojiw = "".join(w)
+		await ctx.send(f'Emojis não Animados:\n{emojix}')
+		await ctx.send(f'Emojis Animados:\n{emojiw}')
+
+	@commands.command()
+	async def timer(self, ctx, tempo=0, *,texto='Pronto!'):
+		x = discord.Embed(title=f'Temporizador ativado!', description=f'Temporizador marcado em {tempo} segundos.')
+		y = discord.Embed(title=f'Temporizador desativado!', description=f'{texto}\n{ctx.author.mention}')
+		msg = await ctx.send(embed=x)
+		await asyncio.sleep(tempo)
+		await msg.edit(embed=y)
+
+	@commands.command()
+	async def roles(self, ctx):
+		rm = []
+		for role in ctx.guild.roles:
+			if role.name != "@everyone":
+				rm.append(role.mention)
+		rms = "".join(rm)
+		x = discord.Embed(tile=f'Cargos de {ctx.guild.name}', description=f'{rms}')
+		x.set_author(name=ctx.author, icon_url=ctx.author.avatar_url)
+		x.timestamp = datetime.datetime.utcnow()
+		await ctx.send(embed=x)
 
 def setup(lara):
 	lara.add_cog(utilidade_cog(lara))

@@ -5,10 +5,6 @@ import random
 import datetime
 import asyncio
 
-with open('config.json') as e:
-    infos = json.load(e)
-    prefixo = infos['prefix']
-
 class diversao_cog(commands.Cog):
     def __init__(self, lara):
         self.lara = lara
@@ -96,7 +92,9 @@ class diversao_cog(commands.Cog):
     @commands.command(aliases=['animes'])
     async def anime(self, ctx):
         img = random.randint(1, 200)
-        await ctx.send(f'https://larab0tbeta.heitordjak47.repl.co/galeria/{img}.jpg')
+        x = discord.Embed(title='Animes')
+        x.set_image(url=f'https://larab0tbeta.heitordjak47.repl.co/galeria/{img}.jpg')
+        await ctx.send(embed=x)
 
 
     @commands.group(invoke_without_command=True, aliases=['d&d'])
@@ -158,6 +156,20 @@ class diversao_cog(commands.Cog):
         x = discord.Embed(title='**Pacotes**')
         x.set_image(url='https://cdn.discordapp.com/attachments/866686570894196746/876224208512909322/Screenshot_20210724-132835-717.png')
         await ctx.send(embed=x)
+
+    @commands.command()
+    async def ejetar(self, ctx, membro: discord.Member):
+        texto = ['é o impostor', 'é o tripulante']
+        rev = random.choice(texto)
+        amugus = discord.Embed(title=f'{membro.name} foi ejetado')
+        amugus.timestamp=datetime.datetime.utcnow()
+        amugus.set_image(url='https://cdn.discordapp.com/attachments/753004109790969867/895392496866164798/arpEpajbLXbqN4KpSqpVw5obsEMfZiGE0ro0YhkdK1QFThdC3fAZkOapCeeP3lQAAAABJRU5ErkJggg.png')
+        revelado = discord.Embed(title=f'{membro.name} {rev}')
+        revelado.timestamp=datetime.datetime.utcnow()
+
+        msg = await ctx.send(embed=amugus)
+        await asyncio.sleep(5)
+        await msg.edit(embed=revelado)
 
 def setup(lara):
     lara.add_cog(diversao_cog(lara))
