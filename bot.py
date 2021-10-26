@@ -15,7 +15,6 @@ with open('config.json') as e:
 
 lara = commands.Bot(command_prefix=!, case_insensitive=True, intents=discord.Intents.all())
 buttons = ButtonsClient(lara)
-lara.remove_command('help')
 
 @lara.event
 async def on_ready():
