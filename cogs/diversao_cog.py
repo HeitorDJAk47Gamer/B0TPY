@@ -1,4 +1,3 @@
-import json
 import discord
 from discord.ext import commands
 import random
@@ -87,75 +86,6 @@ class diversao_cog(commands.Cog):
         elif var == 2:  # coroa
             msg = await ctx.send('Deu coroa!')
             await msg.add_reaction('👑')
-
-
-    @commands.command(aliases=['animes'])
-    async def anime(self, ctx):
-        img = random.randint(1, 200)
-        x = discord.Embed(title='Animes')
-        x.set_image(url=f'https://larab0tbeta.heitordjak47.repl.co/galeria/{img}.jpg')
-        await ctx.send(embed=x)
-
-
-    @commands.group(invoke_without_command=True, aliases=['d&d'])
-    async def dnd(self, ctx):
-        z = '```'
-        x = discord.Embed(title='**Comandos de D&D:**')
-        x.add_field(name='*Compra de Ponto:*', value=f'{z}\n{prefixo}D&D cp\n{z}', inline=True)
-        x.add_field(name='*Modificadores:*', value=f'{z}\n{prefixo}D&D mod\n{z}', inline=True)
-        x.add_field(name='*Pré-definição de pontos:*', value=f'{z}\n{prefixo}D&D dp\n{z}', inline=True)
-        x.add_field(name='*CD:*', value=f'{z}\n{prefixo}D&D cd\n{z}', inline=True)
-        x.add_field(name='*Ficha:*', value=f'{z}\n{prefixo}D&D ficha\n{z}', inline=True)
-        x.add_field(name='*Ouro:*', value=f'{z}\n{prefixo}D&D ouro\n{z}', inline=True)
-        x.add_field(name='*Pacotes:*', value=f'{z}\n{prefixo}D&D pct\n{z}', inline=True)
-        x.set_author(name=ctx.author, icon_url=ctx.author.avatar_url)
-        x.timestamp = datetime.datetime.utcnow()
-        msg = await ctx.send(embed=x)
-
-    @dnd.command(aliases=['compra'])
-    async def cp(self, ctx):
-        x = discord.Embed(title='**Compra de Pontos**')
-        x.set_image(url='https://cdn.discordapp.com/attachments/753004109790969867/853721835899715604/cp.png')
-        await ctx.send(embed=x)
-
-    @dnd.command(aliases=['modificardores', 'bonus'])
-    async def mod(self, ctx):
-        x = discord.Embed(title='**Modificadores**')
-        x.set_image(url='https://cdn.discordapp.com/attachments/753004109790969867/853721845420261386/mod.png')
-        await ctx.send(embed=x)
-
-    @dnd.command(aliases=['distribuir'])
-    async def dp(self, ctx):
-        x = discord.Embed(title='**Distribuição de pontos pré-Definida**')
-        x.add_field(name='*Você pode usar os seguintes valores:*', value='15, 14, 13, 12, 10, 8.', inline=False)
-        x.add_field(name='*Diatribua esses valores entre:*', value='**Força, Destreza, Constituição, Inteligência, Sabedoria, Carisma**', inline=False)
-        x.set_author(name=ctx.author, icon_url=ctx.author.avatar_url)
-        x.timestamp = datetime.datetime.utcnow()
-        await ctx.send(embed=x)
-
-    @dnd.command(aliases=['classe', 'dificuldade'])
-    async def cd(self, ctx):
-        d = discord.Embed(title='**CD**')
-        d.set_image(url='https://cdn.discordapp.com/attachments/753004109790969867/853721828162011146/cd.png')
-        await ctx.send(embed=d)
-
-    @dnd.command(aliases=['e5'])
-    async def ficha(self, ctx):
-        x = discord.Embed(title='**Ficha**', url='https://cdn.discordapp.com/attachments/753004109790969867/853721843785531422/dd-5e-ficha-de-personagem-automatica-biblioteca-elfica.pdf', description='Clique para baixar a ficha D&De5 em Português BR automática.')
-        msg = await ctx.send(embed=x)
-        await msg.add_reaction('<a:download:882601000945483776>')
-
-    @dnd.command(aliases=['money' 'ganhos'])
-    async def ouro(self, ctx):
-        x = discord.Embed(title='**Ouro Inicial**')
-        x.set_image(url='https://cdn.discordapp.com/attachments/753004109790969867/853721847496966204/ouro.jpg')
-        await ctx.send(embed=x)
-
-    @dnd.command(aliases=['pacote', 'pacotes'])
-    async def pct(self, ctx):
-        x = discord.Embed(title='**Pacotes**')
-        x.set_image(url='https://cdn.discordapp.com/attachments/866686570894196746/876224208512909322/Screenshot_20210724-132835-717.png')
-        await ctx.send(embed=x)
 
     @commands.command()
     async def ejetar(self, ctx, membro: discord.Member):
