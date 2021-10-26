@@ -128,16 +128,6 @@ class utilidade_cog(commands.Cog):
 		else:
 			await ctx.send('Por favor, dê alguma mensagem!')
 
-
-	@commands.command()
-	async def code(self, ctx, prog=None, *, code):
-		user = ctx.author.display_name
-		if code != '':
-			await ctx.send(f'**código de:** `{user}` ```{prog}\n{code}\n```')
-			await ctx.message.delete()
-		else:
-			await ctx.send('Por favor, insira o código!')
-
 	@commands.command()
 	async def emojis(self, ctx):
 		x = []
@@ -167,26 +157,6 @@ class utilidade_cog(commands.Cog):
 			x.set_author(name=ctx.author, icon_url=ctx.author.avatar_url)
 			x.timestamp = datetime.datetime.utcnow()
 			msg = await ctx.send(embed=x)
-
-	@commands.command()
-	async def emlist(self, ctx):
-		if ctx.channel.id == 893942602443915314:
-			await ctx.channel.purge(limit=int(10))
-		x = []
-		w = []
-		for emoji in ctx.guild.emojis:
-			if emoji.animated:
-				if not emoji.managed:
-					z = f'<a:{emoji.name}:{emoji.id}> `<a:{emoji.name}:{emoji.id}>`\n'
-					w.append(z)
-			else:
-				if not emoji.managed:
-					y = f'<:{emoji.name}:{emoji.id}> `<:{emoji.name}:{emoji.id}>`\n'
-					x.append(y)
-		emojix = "".join(x)
-		emojiw = "".join(w)
-		await ctx.send(f'Emojis não Animados:\n{emojix}')
-		await ctx.send(f'Emojis Animados:\n{emojiw}')
 
 	@commands.command()
 	async def timer(self, ctx, tempo=0, *,texto='Pronto!'):
