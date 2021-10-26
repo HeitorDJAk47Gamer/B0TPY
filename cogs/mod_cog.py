@@ -4,26 +4,10 @@ from discord.ext.commands import cooldown, BucketType, has_permissions, MissingP
 import random
 import datetime
 import asyncio
-import json
-from bot import get_prefix
 
 class mod_cog(commands.Cog):
     def __init__ (self, lara):
         self.lara = lara
-
-    @commands.command(pass_context=True)
-    @has_permissions(administrator=True) #ensure that only administrators can use this command
-    async def change(self, ctx, cd): #command: bl!changeprefix ...
-        with open('prefixes.json', 'r') as f:
-            prefixes = json.load(f)
-
-        prefixes[str(ctx.guild.id)] = cd
-
-        with open('prefixes.json', 'w') as f: #writes the new prefix into the .json
-            json.dump(prefixes, f, indent=4)
-
-        await ctx.send(f'Prefix changed to: {cd}')
-        name=f'{cd}BotBot'
 
     @commands.command(aliases=['expulsar'])
     @has_permissions(kick_members=True)
@@ -60,11 +44,6 @@ class mod_cog(commands.Cog):
         x.set_thumbnail(url=ctx.guild.icon_url)
         msg = await ctx.send(embed=x)
         await msg.add_reaction('✅')
-
-    @commands.command()
-    @commands.cooldown(1, 30, commands.BucketType.user)
-    async def ola(self, ctx):
-        await ctx.send('oi')
 
 def setup(lara):
     lara.add_cog(mod_cog(lara))
