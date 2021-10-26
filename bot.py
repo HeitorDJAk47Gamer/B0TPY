@@ -13,7 +13,7 @@ with open('config.json') as e:
     infos = json.load(e)
     token = infos['token']
 
-lara = commands.Bot(command_prefix=get_prefix, case_insensitive=True, intents=discord.Intents.all())
+lara = commands.Bot(command_prefix=!, case_insensitive=True, intents=discord.Intents.all())
 buttons = ButtonsClient(lara)
 lara.remove_command('help')
 
