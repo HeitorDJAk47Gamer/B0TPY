@@ -8,17 +8,10 @@ from discord.ext import commands, tasks
 from discord_buttons_plugin import *
 from discord.ext.commands import cooldown, BucketType, has_permissions, MissingPermissions
 
-def get_prefix(lara, message):
-    with open('prefixes.json', 'r') as f:
-        prefixes = json.load(f)
-    return prefixes[str(message.guild.id)]
 
 with open('config.json') as e:
     infos = json.load(e)
     token = infos['token']
-    heitor = infos['heitor']
-    ferro = infos['ferro']
-    servidor = infos['servidor']
 
 lara = commands.Bot(command_prefix=get_prefix, case_insensitive=True, intents=discord.Intents.all())
 buttons = ButtonsClient(lara)
@@ -52,25 +45,6 @@ async def on_message(message):
 
     await lara.process_commands(message)
 
-@lara.event
-async def on_guild_join(guild): #when the bot joins the guild
-    with open('prefixes.json', 'r') as f: #read the prefix.json file
-        prefixes = json.load(f) #load the json file
-
-    prefixes[str(guild.id)] = '-'#default prefix
-
-    with open('prefixes.json', 'w') as f: #write in the prefix.json "message.guild.id": "bl!"
-        json.dump(prefixes, f, indent=4) #the indent is to make everything look a bit neater
-
-@lara.event
-async def on_guild_remove(guild): #when the bot is removed from the guild
-    with open('prefixes.json', 'r') as f: #read the file
-        prefixes = json.load(f)
-
-    prefixes.pop(str(guild.id)) #find the guild.id that bot was removed from
-
-    with open('prefixes.json', 'w') as f: #deletes the guild.id as well as its prefix
-        json.dump(prefixes, f, indent=4)
 
 for filename in os.listdir('./cogs'):
     if filename.endswith('.py'):
@@ -158,68 +132,6 @@ async def ship(ctx, ma : discord.Member, me : discord.Member):
     elif 80 < pp >= 100:
         texto = f'Olha eles, provavelmente estão juntos em segredo com: `{pp}%`'
     x = discord.Embed(title=f'Ship', description=f'{texto}\n {ma.mention}              {me.mention}')
-    await ctx.send(embed=x)
-
-@lara.group(invoke_without_command=True)
-async def adbot(ctx):
-    x = discord.Embed(title=f'Adicione os bots oficiais e parceiros!')
-    x.add_field(name='Flitser:', value=f'[Adicionar Flitser](https://discord.com/oauth2/authorize?client_id=754474576078962769&scope=bot&permissions=8)', inline=False)
-    x.add_field(name='Glitzer:', value=f'[Adicionar Glitzer](https://discord.com/oauth2/authorize?client_id=755774575886991362&scope=bot&permissions=8)', inline=False)
-    x.add_field(name='Lara BOT:', value=f'[Adicionar Lara BOT](https://discord.com/oauth2/authorize?client_id=739265612051906721&scope=bot&permissions=8)', inline=False)
-    x.add_field(name='Sukhoi:', value=f'[Adicionar Sukhoi](https://discord.com/oauth2/authorize?client_id=860397194875633694&scope=bot&permissions=8)', inline=False)
-    x.add_field(name=f'Saber mais:', value=f'-adbot [flitser/glitzer/lb/sukhoi]', inline=False)
-    x.set_author(name=ctx.author, icon_url=ctx.author.avatar_url)
-    x.timestamp = datetime.datetime.utcnow()
-    await ctx.send(embed=x)
-
-@adbot.command()
-async def flitser(ctx):
-    h = lara.get_user(heitor)
-    fl = lara.get_user(754474576078962769)
-    x = discord.Embed(title=f'Flitser')
-    x.add_field(name=f'Desenvolvedor:', value=f'{h.display_name}', inline=False)
-    x.add_field(name=f'Sobre:', value=f'Fliser foi desenvolvido ultimamente para música, usando código aberto!', inline=False)
-    x.set_thumbnail(url=fl.avatar_url)
-    x.set_author(name=ctx.author, icon_url=ctx.author.avatar_url)
-    x.timestamp = datetime.datetime.utcnow()
-    await ctx.send(embed=x)
-
-@adbot.command()
-async def glitzer(ctx):
-    h = lara.get_user(heitor)
-    gl = lara.get_user(755774575886991362)
-    x = discord.Embed(title=f'Glitzer')
-    x.add_field(name=f'Desenvolvedor:', value=f'{h.display_name}', inline=False)
-    x.add_field(name=f'Sobre:', value=f'Quer receber atualizações dos bots desenvolvidos? Aqui está Glitzer, um bot beta dos comandos!', inline=False)
-    x.set_thumbnail(url=gl.avatar_url)
-    x.set_author(name=ctx.author, icon_url=ctx.author.avatar_url)
-    x.timestamp = datetime.datetime.utcnow()
-    await ctx.send(embed=x)
-
-@adbot.command()
-async def lb(ctx):
-    h = lara.get_user(heitor)
-    lr = lara.get_user(739265612051906721)
-    x = discord.Embed(title=f'Lara BOT')
-    x.add_field(name=f'Desenvolvedor:', value=f'{h.display_name}', inline=False)
-    x.add_field(name=f'Sobre:', value=f'Lara BOT, focada em qualidade de serviços, e facilidade de acesso!\nDesenvolvida para ser pública e ajudar no gerenciamento de servidores globais.', inline=False)
-    x.set_thumbnail(url=lr.avatar_url)
-    x.set_author(name=ctx.author, icon_url=ctx.author.avatar_url)
-    x.set_footer(text='O melhor para os usuários do discord!')
-    x.timestamp = datetime.datetime.utcnow()
-    await ctx.send(embed=x)
-
-@adbot.command()
-async def sukhoi(ctx):
-    f = lara.get_user(ferro)
-    sk = lara.get_user(860397194875633694)
-    x = discord.Embed(title=f'Sukhoi')
-    x.add_field(name=f'Desenvolvedor:', value=f'{f.display_name}', inline=False)
-    x.add_field(name=f'Sobre:', value=f'Sukhoi desenvolvido para o aprendizado de programação via discord, támbem ara ajudar a facilitar de forma simples e prática.', inline=False)
-    x.set_thumbnail(url=sk.avatar_url)
-    x.set_author(name=ctx.author, icon_url=ctx.author.avatar_url)
-    x.set_footer(text='Olha esses canardes de fora!')
-    x.timestamp = datetime.datetime.utcnow()
     await ctx.send(embed=x)
 
 lara.run(token)
