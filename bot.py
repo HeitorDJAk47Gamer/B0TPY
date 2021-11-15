@@ -13,8 +13,9 @@ from discord.ext.commands import cooldown, BucketType, has_permissions, MissingP
 with open('config.json') as e:
     infos = json.load(e)
     token = infos['token']
+    prefix = infos['prefix']
 
-lara = commands.Bot(command_prefix=!, case_insensitive=True, intents=discord.Intents.all())
+lara = commands.Bot(command_prefix=prefix, case_insensitive=True, intents=discord.Intents.all())
 buttons = ButtonsClient(lara)
 
 @lara.event
