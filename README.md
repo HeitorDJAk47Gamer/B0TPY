@@ -1,5 +1,5 @@
 # B0TPY
-<h3>Anda em versão Beta, porém totalmente utilizável!</h3>
+<h3>Em versão Beta, porém totalmente utilizável!</h3>
 
 <img style="width: 30%; height: 30 %;" src='https://github.com/HeitorDJAk47Gamer/LaraB0T/blob/master/imagens/Lara.png'>
 
