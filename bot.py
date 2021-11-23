@@ -121,19 +121,6 @@ async def perm(ctx, ch : discord.TextChannel, membro : discord.Member):
     await ch.set_permissions(membro, send_messages=False)
     await ctx.send('sucesso')
 
-@lara.command()
-async def ship(ctx, ma : discord.Member, me : discord.Member):
-    pp = random.randint(1, 100)
-    if pp <= 20:
-        texto = f'Não dará muito certo com: `{pp}%`'
-    elif 20 < pp >= 50:
-        texto = f'Bom... Não o resultado não foi muito ruim, mas não tenha muita esperança com: `{pp}%`'
-    elif 50 < pp >= 80:
-        texto = f'Opa, uma chance muito boa de ficarem juntos com: `{pp}%`'
-    elif 80 < pp >= 100:
-        texto = f'Olha eles, provavelmente estão juntos em segredo com: `{pp}%`'
-    x = discord.Embed(title=f'Ship', description=f'{texto}\n {ma.mention}              {me.mention}')
-    await ctx.send(embed=x)
 
 @lara.command(aliases=['animes'])
 async def anime(ctx,*,cat=0):
