@@ -116,5 +116,54 @@ class diversao_cog(commands.Cog):
         x = discord.Embed(title=f'Ship', description=f'{texto}\n {ma.mention}              {me.mention}')
         await ctx.send(embed=x)
 
+
+    @commands.command(aliases=['animes'])
+    async def anime(self, ctx,*,cat=0):
+        if ctx.channel.is_nsfw():
+            tipo = 'nsfw'
+            x = ['waifu','neko','trap','blowjob']
+        else:
+            tipo = 'sfw'
+            x = ['waifu','neko','shinobu','megumin','bully','cuddle','cry','hug','awoo','kiss','lick','pat','smug','bonk','yeet','blush','smile','wave','highfive','handhold','nom','bite','glomp','slap','kill','kick','happy','wink','poke','dance','cringe']
+        if cat == 0:
+            cat = random.choice(x)
+        r = requests.get(f'https://api.waifu.pics/{tipo}/{cat}')
+        r = str(r.text)
+        r = json.loads(str(r))
+        await ctx.send(r['url'])
+
+
+    @commands.command(aliases=['beijar'])
+    async def kiss(self, ctx, membro : discord.Member):
+        r = requests.get(f'https://nekos.life/api/v2/img/kiss')
+        r = str(r.text)
+        r = json.loads(str(r))
+        x = discord.Embed(title='Beijinho!', description=f'{ctx.author.mention} beijou {membro.mention}')
+        x.set_image(url=r['url'])
+        x.timestamp = datetime.datetime.utcnow()
+        msg = await ctx.send(embed=x)
+        await msg.add_reaction('❤')
+
+    @commands.command(aliases=['abraçar'])
+    async def hug(self, ctx, membro : discord.Member):
+        r = requests.get(f'https://nekos.life/api/v2/img/hug')
+        r = str(r.text)
+        r = json.loads(str(r))
+        x = discord.Embed(title='Abraçooo!', description=f'{ctx.author.mention} abraçou {membro.mention}')
+        x.set_image(url=r['url'])
+        x.timestamp = datetime.datetime.utcnow()
+        msg = await ctx.send(embed=x)
+        await msg.add_reaction('❤')
+
+    @commands.command(aliases=['tapa'])
+    async def slap(self, ctx, membro : discord.Member):
+        r = requests.get(f'https://nekos.life/api/v2/img/slap')
+        r = str(r.text)
+        r = json.loads(str(r))
+        x = discord.Embed(title='Tapão!', description=f'{ctx.author.mention} deu um tapão em {membro.mention}')
+        x.set_image(url=r['url'])
+        x.timestamp = datetime.datetime.utcnow()
+        await ctx.send(embed=x)
+        
 def setup(lara):
     lara.add_cog(diversao_cog(lara))
