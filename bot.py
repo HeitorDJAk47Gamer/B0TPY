@@ -6,7 +6,6 @@ import asyncio
 import datetime
 import requests
 from discord.ext import commands, tasks
-from discord_buttons_plugin import *
 from discord.ext.commands import cooldown, BucketType, has_permissions, MissingPermissions
 
 
@@ -16,7 +15,6 @@ with open('config.json') as e:
     prefix = infos['prefix']
 
 lara = commands.Bot(command_prefix=prefix, case_insensitive=True, intents=discord.Intents.all())
-buttons = ButtonsClient(lara)
 
 @lara.event
 async def on_ready():
@@ -64,43 +62,6 @@ async def conv(ctx, ids):
     await ctx.send(embed=x)
 
 
-@buttons.click
-async def button_one(ctx):
-    await ctx.reply(f'Olá Meu camarada!')
-
-@buttons.click
-async def button_two(ctx):
-    await ctx.reply('Possui 5 para experimentar!')
-
-@buttons.click
-async def button_three(ctx):
-    await ctx.reply('Tome cuidado camarada!', flags = MessageFlags().EPHEMERAL)
-
-@lara.command()
-async def create(ctx):
-    await buttons.send(
-        content = 'Um bom exemplo de mensagem!', 
-        channel = ctx.channel.id,
-        components = [
-            ActionRow([
-                Button(
-                    label='Olá', 
-                    style=ButtonType().Primary, 
-                    custom_id='button_one'          # Refer to line 13
-                ),Button(
-                    label='Nova cor',
-                    style=ButtonType().Secondary,
-                    custom_id='button_two'          # Refer to line 17
-                )
-            ]),ActionRow([
-                Button(
-                    label='Perigo!',
-                    style=ButtonType().Danger,
-                    custom_id='button_three'        # Refer to line 21
-                )
-            ])
-        ]
-    )
 @lara.command()
 @commands.is_owner()
 async def hab(ctx, *, command):
