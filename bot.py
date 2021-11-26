@@ -55,11 +55,6 @@ async def ade(ctx, pr : discord.Emoji, msg : discord.Message):
     await ctx.message.delete()
 
 
-@lara.command()
-async def conv(ctx, ids):
-    x = discord.Embed(title=f'Link do bot', url=f'https://discord.com/oauth2/authorize?client_id={ids}&scope=bot&permissions=6479535680')
-    await ctx.send(embed=x)
-
 
 @lara.command()
 @commands.is_owner()
@@ -73,12 +68,5 @@ async def hab(ctx, *, command):
         command.enabled = not command.enabled
         com = 'ativado' if command.enabled else 'desativado'
         await ctx.send(f'Eu tenho {com} {command.qualified_name} para você!')
-
-
-@lara.command()
-async def perm(ctx, ch : discord.TextChannel, membro : discord.Member):
-    perms = discord.Permissions()
-    await ch.set_permissions(membro, send_messages=False)
-    await ctx.send('sucesso')
 
 lara.run(token)
