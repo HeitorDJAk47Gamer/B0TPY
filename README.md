@@ -2,6 +2,9 @@
 <h3>Em versão Beta, porém totalmente utilizável!</h3>
 
 <img style="width: 30%; height: 30 %;" src='https://github.com/HeitorDJAk47Gamer/LaraB0T/blob/master/imagens/Lara.png'>
+<img src="https://img.shields.io/github/license/HeitorDJAk47Gamer/B0TPY.svg">
+<img src="https://img.shields.io/badge/Python-14354C?style=for-the-badge&logo=python&logoColor=white">
+
 
 <h5>A Equipe Lara B0T estará disponibilizando um código aberto de python para o desenvolvimento de bots, as diretrizes da licença MIT desse código permitem usar esse código livremente!</h5>
 
