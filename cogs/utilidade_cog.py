@@ -127,6 +127,17 @@ class utilidade_cog(commands.Cog):
 			await ctx.send(message)
 		else:
 			await ctx.send('Por favor, dê alguma mensagem!')
+		
+		
+	@commands.command()
+	async def code(self, ctx, prog=None, *, code):
+		user = ctx.author.display_name
+		if code != '':
+			await ctx.send(f'**código de:** `{user}` ```{prog}\n{code}\n```')
+			await ctx.message.delete()
+		else:
+			await ctx.send('Por favor, insira o código!')
+			
 
 	@commands.command()
 	async def emojis(self, ctx):
