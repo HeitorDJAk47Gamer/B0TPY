@@ -160,11 +160,10 @@ class utilidade_cog(commands.Cog):
 
 	@commands.command()
 	async def timer(self, ctx, tempo=0, *,texto='Pronto!'):
-		x = discord.Embed(title=f'Temporizador ativado!', description=f'Temporizador marcado em {tempo} segundos.')
-		y = discord.Embed(title=f'Temporizador desativado!', description=f'{texto}\n{ctx.author.mention}')
-		msg = await ctx.send(embed=x)
+		y = discord.Embed(title=f'Temporizador desativado!', description=f'{tempo} Segundos\n{texto}\n{ctx.author.mention}')
 		await asyncio.sleep(tempo)
-		await msg.edit(embed=y)
+		msg = await ctx.reply(embed=y)
+		await msg.add_reactions('⌚')
 
 	@commands.command()
 	async def roles(self, ctx):
