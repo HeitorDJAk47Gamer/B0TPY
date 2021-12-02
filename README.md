@@ -6,10 +6,13 @@
   <img style="width: 30%; height: 30 %;" src='https://github.com/HeitorDJAk47Gamer/LaraB0T/blob/master/imagens/Lara.png'>
 
   <div align="center">
-    <img src="https://img.shields.io/badge/Python-14354C?style=for-the-badge&logo=python&logoColor=white">
     <img src="https://img.shields.io/github/license/HeitorDJAk47Gamer/B0TPY.svg">
     <img src="https://img.shields.io/github/repo-size/HeitorDJAk47Gamer/B0TPY">
+    <img src="https://img.shields.io/github/last-commit/HeitorDJAk47Gamer/B0TPY">
   </div>
+  <div align="center">
+    <img src="https://img.shields.io/badge/Python-14354C?style=for-the-badge&logo=python&logoColor=white">
+  </div
 
 </p>
 
