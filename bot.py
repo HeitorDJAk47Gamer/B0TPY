@@ -36,8 +36,6 @@ async def on_message(message):
         return
     elif lara.user.mentioned_in(message):
         await message.channel.send(f'Meu prefixo é: **-**')
-    elif 'tu é' in message.content.lower():
-        await message.channel.send(f'Não mano, tu que deixa!')
 
     await lara.process_commands(message)
 
@@ -46,12 +44,6 @@ for filename in os.listdir('./cogs'):
     if filename.endswith('.py'):
         lara.load_extension(f'cogs.{filename[:-3]}')
         print(f'{filename[:-3]} carregado!')
-
-@lara.command()
-async def ade(ctx, pr : discord.Emoji, msg : discord.Message):
-    await msg.add_reaction(pr)
-    await ctx.message.delete()
-
 
 
 @lara.command()
