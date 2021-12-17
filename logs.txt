@@ -1,1 +1,1 @@
-
+{server} > {user} > {comando} > {timestamp}
