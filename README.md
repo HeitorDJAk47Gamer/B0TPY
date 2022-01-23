@@ -12,6 +12,7 @@
   </div>
   <div align="center">
     <img src="https://img.shields.io/badge/Python-14354C?style=for-the-badge&logo=python&logoColor=white">
+    <img src="https://replit.com/badge/github/HeitorDJAk47Gamer/B0TPY">
   </div
 
 </p>
