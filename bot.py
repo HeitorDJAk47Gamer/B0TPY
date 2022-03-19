@@ -39,6 +39,101 @@ async def on_message(message):
 
     await lara.process_commands(message)
 
+async def open_account(user):
+    users = await get_bank_data()
+
+    if str(user.id) in users:
+        return False
+    else:
+        users[str(user.id)] = {}
+        users[str(user.id)]["Wallet"] = 0
+        users[str(user.id)]["Bank"] = 0
+
+    with open("bank.json", 'w') as f:
+        json.dump(users, f, indent=4)
+
+    return True
+
+
+async def get_bank_data():
+    with open("bank.json", 'r') as f:
+        users = json.load(f)
+    return users
+
+@lara.command()
+async def balance(ctx):
+    await open_account(ctx.author)
+
+    user = ctx.author
+
+    users = await get_bank_data()
+
+    wallet_amt = users[str(user.id)]["Wallet"]
+    bank_amt = users[str(user.id)]["Bank"]
+
+    em = discord.Embed(title=f"{ctx.author.name}'s balance.", color=discord.Color.teal())
+    em.add_field(name="Wallet Balance", value=wallet_amt)
+    em.add_field(name="Bank Balance", value=bank_amt)
+    await ctx.send(embed=em)
+
+@lara.command()
+@commands.cooldown(1, 24*60*60, commands.BucketType.user)
+async def daily(ctx):
+    await open_account(ctx.author)
+
+    user = ctx.author
+
+    users = await get_bank_data()
+
+    earnings = random.randrange(100)
+
+    await ctx.send(f"Você acaba de ganhar {earnings} coins")
+
+    users[str(user.id)]["Wallet"] += earnings
+
+    with open("bank.json", 'w') as f:
+        json.dump(users, f, indent=4)
+
+
+@lara.command()
+@commands.cooldown(1, 2*60*60, commands.BucketType.user)
+async def renda(ctx):
+    await open_account(ctx.author)
+
+    user = ctx.author
+
+    users = await get_bank_data()
+
+    earnings = random.randrange(50)
+
+    await ctx.send(f"Você acaba de ganhar {earnings} coins")
+
+    users[str(user.id)]["Wallet"] += earnings
+
+    with open("bank.json", 'w') as f:
+        json.dump(users, f, indent=4)
+
+
+@lara.command()
+async def dep(ctx, quant=0):
+    await open_account(ctx.author)
+    user = ctx.author
+
+    users = await get_bank_data()
+
+    wallet_amt = int(users[str(user.id)]["Wallet"])
+
+    if wallet_amt < quant:
+        await ctx.send('Saldo insuficiente!')
+    else:
+        await ctx.send(f"Você acaba de depositar {quant} coins")
+
+        users[str(user.id)]["Wallet"] -= quant
+        users[str(user.id)]["Bank"] += quant
+
+        with open("bank.json", 'w') as f:
+            json.dump(users, f, indent=4)
+    
 
 for filename in os.listdir('./cogs'):
     if filename.endswith('.py'):
