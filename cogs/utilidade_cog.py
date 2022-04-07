@@ -88,11 +88,6 @@ class utilidade_cog(commands.Cog):
 
 	@commands.command(aliases=['sv', 'servidor'])
 	async def server(self, ctx):
-		rm = []
-		for role in ctx.guild.roles:
-			if role.name != "@everyone":
-				rm.append(role.mention)
-		rms = "".join(rm)
 		membros = len(ctx.guild.members)
 		cargos = len(ctx.guild.roles)
 		texto = len(ctx.guild.text_channels)
@@ -114,7 +109,7 @@ class utilidade_cog(commands.Cog):
 		x.add_field(name=f'📂 Categorias:', value=f'`{cat}`', inline=False)
 		x.add_field(name=f'💬 Texto:', value=f'`{texto}`', inline=True)
 		x.add_field(name=f'🔊 Voz:', value=f'`{voz}`', inline=True)
-		x.add_field(name=f'🔐 Cargos: `({cargos})`', value=f'{rms}', inline=False)
+		x.add_field(name=f'🔐 Cargos:', value=f'`{cargos}`', inline=True)
 		x.set_thumbnail(url=ctx.guild.icon_url)
 		x.set_author(name=ctx.author, icon_url=ctx.author.avatar_url)
 		x.timestamp = datetime.datetime.utcnow()
