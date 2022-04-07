@@ -98,25 +98,6 @@ async def daily(ctx):
 
 
 @lara.command()
-@commands.cooldown(1, 2*60*60, commands.BucketType.user)
-async def renda(ctx):
-    await open_account(ctx.author)
-
-    user = ctx.author
-
-    users = await get_bank_data()
-
-    earnings = random.randrange(50)
-
-    await ctx.send(f"Você acaba de ganhar {earnings} coins")
-
-    users[str(user.id)]["Wallet"] += earnings
-
-    with open("bank.json", 'w') as f:
-        json.dump(users, f, indent=4)
-
-
-@lara.command()
 async def dep(ctx, quant=0):
     await open_account(ctx.author)
     user = ctx.author
