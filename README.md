@@ -3,7 +3,7 @@
 
 <p align="center">
   
-  <img style="width: 30%; height: 30 %;" src='https://github.com/HeitorDJAk47Gamer/LaraB0T/blob/master/imagens/Lara.png'>
+  <img style="width: 30%; height: 30 %;" src='Lara.png'>
 
   <div align="center">
     <img src="https://img.shields.io/github/license/HeitorDJAk47Gamer/B0TPY.svg">
