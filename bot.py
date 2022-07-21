@@ -6,6 +6,8 @@ import asyncio
 import datetime
 from discord.ext import commands, tasks
 from discord.ext.commands import cooldown, BucketType, has_permissions, MissingPermissions
+import googletrans
+from googletrans import Traslator
 
 
 with open('config.json') as e:
@@ -136,5 +138,12 @@ async def hab(ctx, *, command):
         command.enabled = not command.enabled
         com = 'ativado' if command.enabled else 'desativado'
         await ctx.send(f'Eu tenho {com} {command.qualified_name} para você!')
+
+@lara.command() 
+async def trans(ctx, lang, *, args):
+  t= Translator()
+  a= t.translate(args, dest=lang)
+  tembed= discord.Embed(title=f'Traduzindo....', description=f'Traduziu com sucesso o texto abaixo :point_down:  \n \n**{a.text}**', color=discord.Colour.random())
+  await ctx.send(embed=tembed)
 
 lara.run(token)
