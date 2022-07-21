@@ -9,6 +9,56 @@ class bots_cog(commands.Cog):
 	def __init__(self, lara):
 		self.lara = lara
 
+
+
+	@commands.command(aliases=['feedback', 'back'])
+	async def feed(self, ctx, *, message):
+		canal = self.lara.get_channel(chfeed)
+		x = discord.Embed(title='Nova FeedBack')
+		x.add_field(name='Membro:', value=ctx.author, inline=False)
+		x.add_field(name='`FeedBack:`', value=message, inline=False)
+		x.timestamp = datetime.datetime.utcnow()
+		await canal.send(embed=x)
+		await ctx.message.add_reaction('<a:yeah:882026711376609360>')
+#comando para feedback
+
+	@commands.command(aliases=['contribuir', 'sugestao', 'sugerir'])
+	async def sug(self, ctx, *, message):
+		canal = self.lara.get_channel(chsug)
+		x = discord.Embed(title='Nova sugestão')
+		x.add_field(name='Membro:', value=ctx.author, inline=False)
+		x.add_field(name='`Sugerido:`', value=message, inline=False)
+		x.timestamp = datetime.datetime.utcnow()
+		await canal.send(embed=x)
+		await ctx.message.add_reaction('<a:yeah:882026711376609360>')
+#comando de sugestão
+
+	@commands.command(aliases=['reportar'])
+	async def report(self, ctx, *, texto=None):
+		s = self.lara.get_guild(servidor)
+		z = discord.Embed(title='Novo Erro!', description='Carregando o report...')
+		canal = self.lara.get_channel(chrpt)
+		x = discord.Embed(title='**Report de Erro!**')
+		x.add_field(name='Server:', value=ctx.guild.name, inline=False)
+		x.add_field(name='ID do Server:', value=ctx.guild.id, inline=False)
+		x.add_field(name='Relatório:', value=texto, inline=False)
+		x.set_thumbnail(url=ctx.guild.icon_url)
+		x.set_author(name=ctx.author, icon_url=ctx.author.avatar_url)
+		x.timestamp = datetime.datetime.utcnow()
+		msg = await canal.send(embed=z)
+		await asyncio.sleep(0.8)
+		await msg.edit(embed=x)
+		#Developer
+		await ctx.message.add_reaction('<a:yeah:882026711376609360>')
+		#reação
+		y = discord.Embed(title='#Equipe Lara B0T')
+		y.add_field(name=f'**Olá {ctx.author.display_name}**', value='*Agradecemos pela sua colaboração com nosso projeto, iremos analisar o problema e solucioná-lo!*')
+		y.set_thumbnail(url=s.icon_url)
+		y.timestamp = datetime.datetime.utcnow()
+		await ctx.author.send(embed=y)
+#report
+
+
 	@commands.command(aliases=['info'])
 	async def bot(self, ctx):
 		calc = self.lara.latency * 1000
