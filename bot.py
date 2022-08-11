@@ -6,8 +6,6 @@ import asyncio
 import datetime
 from discord.ext import commands, tasks
 from discord.ext.commands import cooldown, BucketType, has_permissions, MissingPermissions
-import googletrans
-from googletrans import Traslator
 
 
 with open('config.json') as e:
@@ -40,6 +38,13 @@ async def on_message(message):
         return
     elif lara.user.mentioned_in(message):
         await message.channel.send(f'Meu prefixo é: **-**')
+    elif message.content.lower('bom dia'):
+        await message.channel.send(f'Bom dia car@ {message.author.mention}!')
+    elif message.content.lower('boa tarde'):
+        await message.channel.send(f'Boa Tarde car@ {message.author.mention}!')
+    elif message.content.lower('boa noite'):
+        await message.channel.send(f'Boa noite car@ {message.author.mention}!')
+
 
     await lara.process_commands(message)
 
@@ -139,11 +144,5 @@ async def hab(ctx, *, command):
         com = 'ativado' if command.enabled else 'desativado'
         await ctx.send(f'Eu tenho {com} {command.qualified_name} para você!')
 
-@lara.command() 
-async def trans(ctx, lang, *, args):
-  t= Translator()
-  a= t.translate(args, dest=lang)
-  tembed= discord.Embed(title=f'Traduzindo....', description=f'Traduziu com sucesso o texto abaixo :point_down:  \n \n**{a.text}**', color=discord.Colour.random())
-  await ctx.send(embed=tembed)
 
 lara.run(token)
