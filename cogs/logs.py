@@ -10,7 +10,7 @@ class logs_cog(commands.Cog):
 	@commands.Cog.listener()
 	async def on_command(self, ctx):
 		server = ctx.guild.name
-		user = ctx.author
+		user = ctx.author.id
 		comando = ctx.command
 		timestamp = datetime.datetime.utcnow().strftime(f'Data: %d/%m/%Y Hora: %H:%M:%S %p')
 
