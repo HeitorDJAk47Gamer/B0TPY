@@ -34,7 +34,7 @@ async def stats():
 
 @lara.event
 async def on_message(message):
-    if message.author == lara.user:
+    if message.author == lara.user or message.mention_everyone:
         return
     elif lara.user.mentioned_in(message):
         if "@everyone" in message.content not "@here" in message.content:
