@@ -37,8 +37,7 @@ async def on_message(message):
     if message.author == lara.user or message.mention_everyone:
         return
     elif lara.user.mentioned_in(message):
-        if "@everyone" in message.content not "@here" in message.content:
-            await message.channel.send(f'Meu prefixo é: **-**')
+        await message.channel.send(f'Meu prefixo é: **-**')
     elif message.content.lower('bom dia'):
         await message.channel.send(f'Bom dia car@ {message.author.mention}!')
     elif message.content.lower('boa tarde'):
