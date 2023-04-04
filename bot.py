@@ -13,7 +13,7 @@ with open('config.json') as e:
     token = infos['token']
     prefix = infos['prefix']
 
-lara = commands.Bot(command_prefix=prefix, case_insensitive=True, intents=discord.Intents.all())
+lara = commands.Bot(command_prefix=commands.when_mentioned_or(prefix), case_insensitive=True, intents=discord.Intents.all())
 
 @lara.event
 async def on_ready():
