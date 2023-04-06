@@ -23,7 +23,7 @@ class mod_cog(commands.Cog):
     @commands.command(aliases=['banir'])
     @has_permissions(ban_members=True)
     async def ban(self, ctx, membro : discord.Member, *, motivo=None):
-        x = discord.Embed(title='**Expulsão**')
+        x = discord.Embed(title='**Banimento**')
         x.add_field(name='*Membro Banido:*', value=f'{membro.mention}', inline=True)
         x.add_field(name='*Por:*', value=f'{ctx.author.mention}', inline=True)
         x.add_field(name='*Motivo:*', value=f'{motivo}', inline=False)
