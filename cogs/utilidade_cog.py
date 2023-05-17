@@ -1,9 +1,6 @@
-import discord
+import discord, random, datetime, asyncio
 from discord.ext import commands
 from discord.ext.commands import cooldown, BucketType, has_permissions, MissingPermissions
-import random
-import datetime
-import asyncio
 
 class utilidade_cog(commands.Cog):
 	def __init__(self, lara):
