@@ -1,9 +1,4 @@
-import json
-import os
-import random
-import discord
-import asyncio
-import datetime
+import json, os, random, discord, asyncio, datetime
 from discord.ext import commands, tasks
 from discord.ext.commands import cooldown, BucketType, has_permissions, MissingPermissions
 
