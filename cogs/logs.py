@@ -1,7 +1,5 @@
-import discord
-import os
+import discord, os, datetime
 from discord.ext import commands
-import datetime
 
 class logs_cog(commands.Cog):
 	def __init__ (self, lara):
