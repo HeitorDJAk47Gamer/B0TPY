@@ -1,9 +1,5 @@
-import discord
+import discord, random, requests, asyncio, datetime
 from discord.ext import commands
-import random
-import datetime
-import asyncio
-import requests
 
 class diversao_cog(commands.Cog):
     def __init__(self, lara):
