@@ -1,9 +1,5 @@
-import discord
+import discord, random, datetime, asyncio
 from discord.ext import commands
-import random
-import datetime
-import asyncio
-
 
 class bots_cog(commands.Cog):
 	def __init__(self, lara):
