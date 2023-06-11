@@ -1,6 +1,4 @@
 # B0TPY
-<h3>Em versão Beta, porém totalmente utilizável!</h3>
-
 <p align="center">
   
   <img style="width: 30%; height: 30 %;" src='Lara.png'>
