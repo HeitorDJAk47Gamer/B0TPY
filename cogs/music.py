@@ -1,6 +1,6 @@
 import discord
 from discord.ext import commands
-from youtube_dl import YoutubeDL
+from youtube_dl import YoutubeDL #codigo descontinuado!
 
 class music(commands.Cog):
     def __init__(self, lara):
