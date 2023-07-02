@@ -32,4 +32,4 @@
 <h5>Projeto Lara descontinuado em Discord.py</h5>
 <h5>Você pode enviar sua contribuição via: github, discord ou e-mail: l4r4b0t@gmail.com</h5>
 
-<h6>Apenas distribuimos o código, não nos responsabilizamos pelo uso do mesmo.</h6>
+<h6>Apenas distribuimos o código, não nos responsabilizamos pelo uso do mesmo.</h6> (01/07)
