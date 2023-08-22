@@ -10,16 +10,16 @@ with open('config.json') as e:
 
 lara = commands.Bot(command_prefix=commands.when_mentioned_or(prefix), case_insensitive=True, intents=discord.Intents.all())
 
-@lara.event
+@lara.event # evento de inicio do bot
 async def on_ready():
     calc = lara.latency * 1000
     pong = round(calc)
-    stats.start()
+    stats.start() # inicia todas as atividades de status
 
     print(f'Nome: {lara.user}  ID: {lara.user.id}')
-    print(f'Membros Globais: {len(lara.users)}')
-    print(f'Servidores Globais: {len(lara.guilds)}')
-    print(f'Ping {pong} ms')
+    print(f'Membros Globais: {len(lara.users)}') #contagem membros globai
+    print(f'Servidores Globais: {len(lara.guilds)}') #contagem servidores globai
+    print(f'Ping {pong} ms') #ping
 
 @tasks.loop(minutes=10)
 async def stats():
@@ -27,7 +27,7 @@ async def stats():
     await asyncio.sleep(5 * 60)
     await lara.change_presence(activity=discord.Activity(type=discord.ActivityType.watching, name=f'{len(lara.guilds)} Server'))
 
-@lara.event
+@lara.event #eventos simples
 async def on_message(message):
     if message.author == lara.user or message.mention_everyone:
         return
@@ -41,7 +41,7 @@ async def on_message(message):
         await message.channel.send(f'Boa noite car@ {message.author.mention}!')
 
 
-    await lara.process_commands(message)
+    await lara.process_commands(message) #pós processos de comandos
 
 async def open_account(user):
     users = await get_bank_data()
