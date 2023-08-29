@@ -140,4 +140,4 @@ async def hab(ctx, *, command):
         await ctx.send(f'Eu tenho {com} {command.qualified_name} para você!')
 
 
-lara.run(token)
+lara.run(token)# rodar bot
