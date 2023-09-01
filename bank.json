@@ -1,10 +1,10 @@
 {
     "000000000000000000": {
-        "Wallet": 27598,
+        "Wallet": COINS NUMBER,
         "Bank": 10
     },
     "000000000000000001": {
-        "Wallet": 18734,
+        "Wallet": COINS NUMBER,
         "Bank": 10
     }
 }
