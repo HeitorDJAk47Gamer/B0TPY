@@ -33,13 +33,6 @@ async def on_message(message):
         return
     elif lara.user.mentioned_in(message):
         await message.channel.send(f'Meu prefixo é: **-**')
-    elif message.content.lower('bom dia'):
-        await message.channel.send(f'Bom dia car@ {message.author.mention}!')
-    elif message.content.lower('boa tarde'):
-        await message.channel.send(f'Boa Tarde car@ {message.author.mention}!')
-    elif message.content.lower('boa noite'):
-        await message.channel.send(f'Boa noite car@ {message.author.mention}!')
-
 
     await lara.process_commands(message) #pós processos de comandos
 
