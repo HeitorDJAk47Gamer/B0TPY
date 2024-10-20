@@ -6,7 +6,6 @@
   <div align="center">
     <img src="https://img.shields.io/github/license/HeitorDJAk47Gamer/B0TPY.svg">
     <img src="https://img.shields.io/github/repo-size/HeitorDJAk47Gamer/B0TPY">
-    <img src="https://img.shields.io/github/last-commit/HeitorDJAk47Gamer/B0TPY">
   </div>
   <div align="center">
     <img src="http://ForTheBadge.com/images/badges/made-with-python.svg">
