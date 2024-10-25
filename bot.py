@@ -21,10 +21,10 @@ async def on_ready():
     print(f'Servidores Globais: {len(lara.guilds)}') #contagem servidores globai
     print(f'Ping {pong} ms') #ping
 
-@tasks.loop(minutes=10)
+@tasks.loop(minutes=30)
 async def stats():
     await lara.change_presence(activity=discord.Activity(type=discord.ActivityType.listening, name=f'{len(lara.users)} Membros'))
-    await asyncio.sleep(5 * 60)
+    await asyncio.sleep(15 * 60)
     await lara.change_presence(activity=discord.Activity(type=discord.ActivityType.watching, name=f'{len(lara.guilds)} Server'))
 
 @lara.event #eventos simples
