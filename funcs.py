@@ -21,6 +21,4 @@ async def send_message_chunks(channel, message, caixa=None, imgs : str =None):
                 x.set_thumbnail(url=f'{imgs}')
             await channel.send(embed=x)
 
-
-
 #arquivo de multi-funções
