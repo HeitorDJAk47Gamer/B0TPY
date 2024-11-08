@@ -20,7 +20,7 @@ class diversao_cog(commands.Cog):
         dice1 = dice[:diceFindD].replace('d', '')
         dice2 = dice[diceFindD:].replace('d', '')
         r = []
-        if dice1 == '':
+        if dice1 == '' or '0':
             dice1 = 1
         for y in range(int(dice1)):
             r.append(random.randint(1, int(dice2)))
