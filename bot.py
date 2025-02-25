@@ -33,12 +33,10 @@ async def on_message(message):
         return
     elif lara.user.mentioned_in(message):
         await message.channel.send(f'Meu prefixo é: **-**')
-
     await lara.process_commands(message) #pós processos de comandos
 
 async def open_account(user):
     users = await get_bank_data()
-
     if str(user.id) in users:
         return False
     else:
@@ -50,7 +48,6 @@ async def open_account(user):
         json.dump(users, f, indent=4)
 
     return True
-
 
 async def get_bank_data():
     with open("bank.json", 'r') as f:
@@ -77,17 +74,11 @@ async def balance(ctx):
 @commands.cooldown(1, 24*60*60, commands.BucketType.user)
 async def daily(ctx):
     await open_account(ctx.author)
-
     user = ctx.author
-
     users = await get_bank_data()
-
     earnings = random.randrange(100)
-
     await ctx.send(f"Você acaba de ganhar {earnings} coins")
-
     users[str(user.id)]["Wallet"] += earnings
-
     with open("bank.json", 'w') as f:
         json.dump(users, f, indent=4)
 
@@ -96,11 +87,8 @@ async def daily(ctx):
 async def dep(ctx, quant=0):
     await open_account(ctx.author)
     user = ctx.author
-
     users = await get_bank_data()
-
     wallet_amt = int(users[str(user.id)]["Wallet"])
-
     if wallet_amt < quant:
         await ctx.send('Saldo insuficiente!')
     else:
