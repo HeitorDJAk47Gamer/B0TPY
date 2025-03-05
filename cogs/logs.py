@@ -1,5 +1,5 @@
 import discord, os, datetime
-from discord.ext import commands
+from discord.ext import commands, tasks
 
 class logs_cog(commands.Cog):
 	def __init__ (self, lara):
