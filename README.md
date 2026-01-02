@@ -26,7 +26,7 @@
 
 [Disforge](https://disforge.com/bot/3010-lara-bot)
 
-<h5>A Equipe Lara B0T estará disponibilizando um código aberto de python para o desenvolvimento de bots, as diretrizes da licença MIT desse código permitem usar esse código livremente!</h5>
+<h5>A Equipe Lara B0T estará disponibilizando um código aberto de python para o desenvolvimento de bots, as diretrizes da licença MIT desse código permitem usar esse código livremente e fazer modificações!</h5>
 
 <h5>Projeto Lara descontinuado em Discord.py</h5>
 <h5>Você pode enviar sua contribuição via: github, discord ou e-mail: l4r4b0t@gmail.com</h5>
