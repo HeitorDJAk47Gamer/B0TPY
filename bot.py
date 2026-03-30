@@ -2,7 +2,6 @@ import json, os, random, discord, asyncio, datetime
 from discord.ext import commands, tasks
 from discord.ext.commands import cooldown, BucketType, has_permissions, MissingPermissions
 
-
 with open('config.json') as e:
     infos = json.load(e)
     token = infos['token']
@@ -99,13 +98,11 @@ async def dep(ctx, quant=0):
 
         with open("bank.json", 'w') as f:
             json.dump(users, f, indent=4)
-    
 
 for filename in os.listdir('./cogs'):
     if filename.endswith('.py'):
         lara.load_extension(f'cogs.{filename[:-3]}')
         print(f'{filename[:-3]} carregado!')
-
 
 @lara.command()
 @commands.is_owner()
@@ -119,6 +116,5 @@ async def hab(ctx, *, command):
         command.enabled = not command.enabled
         com = 'ativado' if command.enabled else 'desativado'
         await ctx.send(f'Eu tenho {com} {command.qualified_name} para você!')
-
 
 lara.run(token)# rodar bot
