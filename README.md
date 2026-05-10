@@ -20,8 +20,6 @@
 
 [InfiniteBots](https://infinitybots.gg/bot/739265612051906721)
 
-[DiscordList](https://discordlist.gg/bot/739265612051906721)
-
 [DiscordME](https://discord.me/lara-bot)
 
 [Disforge](https://disforge.com/bot/3010-lara-bot)
